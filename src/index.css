@@ -47,6 +47,7 @@
   --color-indigo-velvet: #532b88ff;
   --color-lavender-purple: #9b72cfff;
   --color-wisteria: #c8b1e4ff;
+  --color-midnight-violet: #191126;
 
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -58,8 +59,8 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: var(--color-lavender-mist);
+  --foreground: var(--color-dark-amethyst);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -93,8 +94,8 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
+  --background: var(--color-dark-amethyst);
+  --foreground: var(--color-lavender-mist);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
@@ -131,7 +132,7 @@
     @apply m-0 p-0;
   }
   body {
-    @apply bg-lavender-mist;
+    @apply bg-background text-foreground;
   }
   html {
     @apply font-sans;
