@@ -1,14 +1,11 @@
-import DevSkillsAsyncDropdown from "./components/Forms/DevSkillsAsyncDropdown";
-import { useState } from "react";
+import { Toaster } from "@/components/ui/sonner";
+import AddTechnicalDetailsForm from "./components/forms/AddTechnicalDetailsForm";
 const App = () => {
-  const [skills, setSkills] = useState<string[]>([]);
-
   return (
     <div className="flex items-center justify-center my-10">
-      <DevSkillsAsyncDropdown
-        value={skills}
-        handleSelect={(values) => setSkills(values)}
-      />
+      <AddTechnicalDetailsForm />
+
+      <Toaster />
     </div>
   );
 };

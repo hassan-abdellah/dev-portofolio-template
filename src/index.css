@@ -61,8 +61,8 @@
 :root {
   --background: var(--color-lavender-mist);
   --foreground: var(--color-dark-amethyst);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card: var(--color-lavender-mist);
+  --card-foreground: var(--color-dark-amethyst);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
   --primary: oklch(0.205 0 0);
@@ -136,5 +136,29 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+@layer utilities {
+  .input-field {
+    @apply text-foreground focus-visible:border-lavender-mist focus-visible:ring-lavender-purple focus-visible:ring-[3px]
+    focus-within:ring-lavender-purple focus-within:ring-[3px]
+    aria-invalid:ring-destructive/20 aria-invalid:ring-[3px] dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive;
+  }
+  .input-label {
+    @apply text-foreground;
+  }
+
+  .input-group {
+    @apply has-[[data-slot=input-group-control]:focus-visible]:border-lavender-mist has-[[data-slot=input-group-control]:focus-visible]:ring-lavender-purple has-[[data-slot=input-group-control]:focus-visible]:ring-[3px]
+    has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:ring-[3px] dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-[[data-slot][aria-invalid=true]]:border-destructive;
+  }
+
+  .card-width {
+    @apply lg:w-full w-[calc(100%-30px)];
+  }
+
+  .container {
+    @apply xl:max-w-7xl sm:max-w-[calc(100%-7rem)] max-w-[calc(100%-2rem)] mx-auto;
   }
 }
