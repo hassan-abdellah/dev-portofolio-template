@@ -1,3 +1,4 @@
+import { platformsOptions } from "@/constants";
 import * as z from "zod";
 
 const PLATFORM_PREFIXES: Record<string, RegExp> = {
@@ -25,7 +26,7 @@ export const technicalDetailsSchema = z
     links: z
       .array(
         z.object({
-          link_type: z.enum(["youtube", "github", "linkedin", "others"], {
+          link_type: z.enum(platformsOptions, {
             error: "Please Select Valid Platform",
           }),
           link_url: z.url("Please Enter A valid URL"),

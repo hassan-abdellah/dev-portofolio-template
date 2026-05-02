@@ -1,4 +1,4 @@
-import AddTechnicalDetailsForm from "@/components/forms/AddTechnicalDetailsForm";
+import AddTechnicalDetailsForm from "@/components/forms/TechnicalDetails/AddTechnicalDetailsForm";
 
 const AddTechnicalPage = () => {
   return (

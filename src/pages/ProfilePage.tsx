@@ -2,15 +2,13 @@ import GithubSVG from "@/components/icons/GithubSVG";
 import GlobeSVG from "@/components/icons/GlobeSVG";
 import LinkedInSVG from "@/components/icons/LinkedInSVG";
 import YoutubeSVG from "@/components/icons/YoutubeSVG";
-import type { profileData } from "@/types";
+import { useProfileData } from "@/hooks/useProfileData";
 import clsx from "clsx";
-import { useMemo, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 const ProfilePage = () => {
-  const profileData: profileData = useMemo(() => {
-    const localStorageItem = localStorage.getItem("dev-links");
-    return localStorageItem ? JSON.parse(localStorageItem) : null;
-  }, []);
+  // @TODO: implement getting data from DB
+  const profileData = useProfileData();
 
   const PLATFORM_Icons: Record<string, ReactNode> = {
     youtube: (
@@ -41,7 +39,7 @@ const ProfilePage = () => {
             {profileData.skills.map((item) => (
               <span
                 key={item}
-                className="bg-lavender-mist rounded-3xl text-dark-amethyst shadow-dark-amethyst px-3 py-1.5"
+                className="bg-lavender-mist rounded-3xl text-dark-amethyst shadow-dark-amethyst px-3 py-1.5 capitalize"
               >
                 {item}
               </span>
