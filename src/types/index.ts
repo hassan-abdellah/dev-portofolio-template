@@ -4,7 +4,7 @@ export interface skillType {
 }
 
 export interface platformLink {
-  link_type: "youtube" | "github" | "linkedin" | "others" | string;
+  link_type: "youtube" | "github" | "linkedin" | "others" | (string & {});
   link_url: string;
 }
 export interface profileData {
