@@ -1,10 +1,14 @@
 import { Toaster } from "@/components/ui/sonner";
-import AddTechnicalDetailsForm from "./components/forms/AddTechnicalDetailsForm";
+import { Route, Routes } from "react-router";
+import ProfilePage from "./pages/ProfilePage";
+import AddTechnicalPage from "./pages/AddTechnicalPage";
 const App = () => {
   return (
-    <div className="flex items-center justify-center my-10">
-      <AddTechnicalDetailsForm />
-
+    <div>
+      <Routes>
+        <Route index element={<AddTechnicalPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+      </Routes>
       <Toaster />
     </div>
   );
