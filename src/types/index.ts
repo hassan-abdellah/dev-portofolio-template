@@ -13,3 +13,10 @@ export interface profileData {
   skills: string[];
   links: platformLink[];
 }
+
+export interface projectData {
+  id?: string;
+  title: string;
+  description: string;
+  image_url: string;
+}
