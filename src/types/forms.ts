@@ -6,3 +6,9 @@ export interface technicalFormValues {
   skills: string[];
   links: platformLink[];
 }
+export interface projectFormValues {
+  title: string;
+  description: string;
+  project_image: File | null;
+  project_url?: string | null;
+}

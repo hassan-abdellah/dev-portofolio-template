@@ -14,6 +14,7 @@ const FormController = ({
   error,
   invalid,
   fieldClassNames,
+  isRequired = false,
 }: {
   id: string;
   label: string;
@@ -25,11 +26,13 @@ const FormController = ({
   error: string | undefined;
   invalid: boolean;
   fieldClassNames?: string;
+  isRequired?: boolean;
 }) => {
   return (
     <Field data-invalid={invalid} className={fieldClassNames}>
       <FieldLabel htmlFor={id} className="input-label">
         {label}
+        {isRequired && <span className="text-destructive">*</span>}
       </FieldLabel>
 
       <Input

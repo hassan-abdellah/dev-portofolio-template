@@ -18,5 +18,6 @@ export interface projectData {
   id?: string;
   title: string;
   description: string;
-  image_url: string;
+  image_url?: string;
+  project_url?: string;
 }
