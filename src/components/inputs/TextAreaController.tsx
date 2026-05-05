@@ -18,6 +18,7 @@ const TextAreaController = ({
   onBlur,
   error,
   invalid,
+  isRequired = false,
 }: {
   id: string;
   label: string;
@@ -28,11 +29,13 @@ const TextAreaController = ({
   onBlur: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
   error: string | undefined;
   invalid: boolean;
+  isRequired?: boolean;
 }) => {
   return (
     <Field data-invalid={invalid}>
       <FieldLabel htmlFor={id} className="input-label">
         {label}
+        {isRequired && <span className="text-destructive">*</span>}
       </FieldLabel>
       <InputGroup className="input-group">
         <InputGroupTextarea

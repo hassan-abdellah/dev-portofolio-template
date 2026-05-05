@@ -6,13 +6,13 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
-import { Button } from "@/components/ui/button";
 import { IconFolderCode } from "@tabler/icons-react";
+import CreateProjectModal from "./CreateProjectModal";
 const ProjectsLists = () => {
   return (
     <div className="mt-8">
       <h5 className="text-center text-2xl mb-4">Projects</h5>
-      <Empty className="border border-dashed border-dark-amethyst max-w-md mx-auto">
+      <Empty className="border border-dashed border-dark-amethyst max-w-md mx-auto card-width">
         <EmptyHeader>
           <EmptyMedia variant="icon">
             <IconFolderCode />
@@ -24,9 +24,9 @@ const ProjectsLists = () => {
           </EmptyDescription>
         </EmptyHeader>
         <EmptyContent className="flex-row justify-center gap-2">
-          <Button className="py-4.5 bg-dark-amethyst hover:bg-lavender-purple transition-colors duration-200 cursor-pointer">
-            Create Project
-          </Button>
+          {/* TODO: Implement project creation functionality */}
+          {/* Add the button here */}
+          <CreateProjectModal />
         </EmptyContent>
       </Empty>
     </div>
