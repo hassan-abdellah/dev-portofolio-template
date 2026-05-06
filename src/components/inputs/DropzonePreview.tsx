@@ -3,8 +3,9 @@ import {
   generateFilePreview,
   sliceFileName,
 } from "@/utils/fileUtils";
-import { EyeIcon, XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Delete } from "../icons/Delete";
+import PreviewSVG from "../icons/PreviewSVG";
 
 const DropzonePreview = ({
   files,
@@ -52,7 +53,8 @@ const DropzonePreview = ({
               aria-label="Preview File"
               className="p-2 text-dark-amethyst hover:bg-dark-amethyst hover:text-lavender-mist focus-visible:bg-dark-amethyst focus-visible:text-lavender-mist transition-colors duration-300 rounded-full"
             >
-              <EyeIcon className="w-4 h-4" />
+              {/* <EyeIcon className="w-4 h-4" /> */}
+              <PreviewSVG className="w-4 h-4" />
             </a>
             {/* remove file button */}
             <Button
@@ -61,7 +63,11 @@ const DropzonePreview = ({
               onClick={() => onDeleteFile(file)}
               className="rounded-full p-2 text-destructive hover:text-red-600 focus-visible:bg-muted focus-visible:text-destructive focus-visible:outline-0 focus-visible:ring-0 focus-visible:border-0 transition-colors duration-300 cursor-pointer"
             >
-              <XIcon className="w-4 h-4" />
+              <Delete
+                className="w-4 h-4 stroke-destructive"
+                width={16}
+                height={16}
+              />
             </Button>
           </div>
         </div>
