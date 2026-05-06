@@ -6,8 +6,8 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
-import { IconFolderCode } from "@tabler/icons-react";
 import CreateProjectModal from "./CreateProjectModal";
+import { Folders } from "../icons/Folders";
 const ProjectsLists = () => {
   return (
     <div className="mt-8">
@@ -15,7 +15,7 @@ const ProjectsLists = () => {
       <Empty className="border border-dashed border-dark-amethyst max-w-md mx-auto card-width">
         <EmptyHeader>
           <EmptyMedia variant="icon">
-            <IconFolderCode />
+            <Folders className="stroke-dark-amethyst" />
           </EmptyMedia>
           <EmptyTitle>No Projects Yet</EmptyTitle>
           <EmptyDescription>

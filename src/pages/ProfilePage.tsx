@@ -1,6 +1,3 @@
-import GithubSVG from "@/components/icons/GithubSVG";
-import GlobeSVG from "@/components/icons/GlobeSVG";
-import LinkedInSVG from "@/components/icons/LinkedInSVG";
 import YoutubeSVG from "@/components/icons/YoutubeSVG";
 import { useProfileData } from "@/hooks/useProfileData";
 import clsx from "clsx";
@@ -8,6 +5,16 @@ import { PencilIcon } from "lucide-react";
 import { type ReactNode } from "react";
 import { Link } from "react-router";
 import ProjectsLists from "@/components/projects/ProjectsLists";
+import LinkedinSVG from "@/components/icons/LinkedinSVG";
+import GlobeSVG from "@/components/icons/GlobeSVG";
+import GithubSVG from "@/components/icons/GithubSVG";
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 const ProfilePage = () => {
   // @TODO: implement getting data from DB
   const profileData = useProfileData();
@@ -16,13 +23,30 @@ const ProfilePage = () => {
     youtube: (
       <YoutubeSVG strokeClassNames={clsx("fill-lavender-mist")} classNames="" />
     ),
-    github: <GithubSVG classNames={clsx("fill-lavender-mist")} />,
-    linkedin: (
-      <LinkedInSVG
-        classNames={clsx("fill-lavender-mist stroke-lavender-mist")}
-      />
+    github: (
+      <Tooltip>
+        <TooltipTrigger>
+          <GithubSVG className={"fill-lavender-mist"} />
+        </TooltipTrigger>
+        <TooltipContent>Github</TooltipContent>
+      </Tooltip>
     ),
-    others: <GlobeSVG pathClassNames={clsx("stroke-lavender-mist")} />,
+    linkedin: (
+      <Tooltip>
+        <TooltipTrigger>
+          <LinkedinSVG className="stroke-lavender-mist" />
+        </TooltipTrigger>
+        <TooltipContent>LinkedIn</TooltipContent>
+      </Tooltip>
+    ),
+    others: (
+      <Tooltip>
+        <TooltipTrigger>
+          <GlobeSVG className={"stroke-lavender-mist"} />
+        </TooltipTrigger>
+        <TooltipContent>Websit</TooltipContent>
+      </Tooltip>
+    ),
   };
 
   return (
@@ -52,7 +76,7 @@ const ProfilePage = () => {
         {/* social links */}
 
         {profileData.links.length > 0 ? (
-          <div className="mt-4 flex items-center justify-center gap-1.5 flex-wrap">
+          <div className="mt-4 flex items-center justify-center gap-2.5 flex-wrap">
             {profileData.links.map((link) => (
               <a
                 href={link.link_url}
