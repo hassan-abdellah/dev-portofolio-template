@@ -12,12 +12,15 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { CheckCircleIcon } from "lucide-react";
+import { CheckCircleIcon, XCircleIcon } from "lucide-react";
 import { toast } from "sonner";
 import { Spinner } from "../../ui/spinner";
 import TechnicalFormInputs from "./TechnicalFormInputs";
+import apiClient from "@/api/apiClient";
+import { useAuth } from "@clerk/react";
 
 const AddTechnicalDetailsForm = () => {
+  const { getToken } = useAuth();
   const form = useForm<z.infer<typeof technicalDetailsSchema>>({
     resolver: zodResolver(technicalDetailsSchema),
     defaultValues: {
@@ -29,14 +32,33 @@ const AddTechnicalDetailsForm = () => {
     mode: "onChange",
   });
 
-  function handleAddData(data: z.infer<typeof technicalDetailsSchema>) {
-    localStorage.removeItem("dev-links");
-    localStorage.setItem("dev-links", JSON.stringify(data));
-    toast.success("Data Added Successfully", {
-      position: "top-right",
-      icon: <CheckCircleIcon />,
-    });
-    form.reset();
+  async function handleAddData(data: z.infer<typeof technicalDetailsSchema>) {
+    try {
+      const token = await getToken(); // JWT to send to your Node backend
+      await apiClient.post(
+        "/profiles",
+        {
+          title: data.title,
+          description: data.description,
+          skills: data.skills,
+          links: data.links,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      toast.success("Data Added Successfully", {
+        position: "top-right",
+        icon: <CheckCircleIcon />,
+      });
+      form.reset();
+    } catch (error) {
+      console.log("Error", error);
+      toast.success(error?.message, {
+        position: "top-right",
+        icon: <XCircleIcon />,
+      });
+    }
   }
 
   return (
