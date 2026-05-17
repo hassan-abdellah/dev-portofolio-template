@@ -6,20 +6,22 @@ import EditTechnicalDetailsPage from "./pages/EditTechnicalDetailsPage";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import RegisterPage from "./pages/authentication/RegisterPage";
 import LoginPage from "./pages/authentication/LoginPage";
-import { SignOutButton } from "@clerk/react";
+import { authPaths, profilePaths } from "./data/routesPaths";
 
 const App = () => {
   return (
     <div>
       <TooltipProvider>
-        <SignOutButton redirectUrl="/auth/sign-in" />
         <Routes>
           <Route index element={<AddTechnicalPage />} />
-          <Route path="/profile/edit" element={<EditTechnicalDetailsPage />} />
-          <Route path="/profile/:id" element={<ProfilePage />} />
+          <Route
+            path={profilePaths.editProfile}
+            element={<EditTechnicalDetailsPage />}
+          />
+          <Route path={profilePaths.myProfile} element={<ProfilePage />} />
 
-          <Route path={"/auth/sign-up"} element={<RegisterPage />} />
-          <Route path={"/auth/sign-in"} element={<LoginPage />} />
+          <Route path={authPaths.register} element={<RegisterPage />} />
+          <Route path={authPaths.logIn} element={<LoginPage />} />
         </Routes>
         <Toaster />
       </TooltipProvider>

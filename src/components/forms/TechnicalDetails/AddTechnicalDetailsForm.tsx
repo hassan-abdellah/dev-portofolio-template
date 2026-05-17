@@ -12,15 +12,19 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { CheckCircleIcon, XCircleIcon } from "lucide-react";
-import { toast } from "sonner";
 import { Spinner } from "../../ui/spinner";
 import TechnicalFormInputs from "./TechnicalFormInputs";
 import apiClient from "@/api/apiClient";
 import { useAuth } from "@clerk/react";
+import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
+import { PROFILESURL } from "@/api/url_helper";
+import { profilePaths } from "@/data/routesPaths";
+import { useNavigate } from "react-router";
 
 const AddTechnicalDetailsForm = () => {
   const { getToken } = useAuth();
+  const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof technicalDetailsSchema>>({
     resolver: zodResolver(technicalDetailsSchema),
     defaultValues: {
@@ -36,7 +40,7 @@ const AddTechnicalDetailsForm = () => {
     try {
       const token = await getToken(); // JWT to send to your Node backend
       await apiClient.post(
-        "/profiles",
+        PROFILESURL,
         {
           title: data.title,
           description: data.description,
@@ -47,17 +51,10 @@ const AddTechnicalDetailsForm = () => {
           headers: { Authorization: `Bearer ${token}` },
         },
       );
-      toast.success("Data Added Successfully", {
-        position: "top-right",
-        icon: <CheckCircleIcon />,
-      });
-      form.reset();
+      handelSuccessMessage("Data Added Successfully");
+      navigate(profilePaths.myProfile);
     } catch (error) {
-      console.log("Error", error);
-      toast.success(error?.message, {
-        position: "top-right",
-        icon: <XCircleIcon />,
-      });
+      handleAxiosError(error);
     }
   }
 
@@ -81,6 +78,7 @@ const AddTechnicalDetailsForm = () => {
         <Button
           form="technical-form"
           type="submit"
+          disabled={form.formState.isSubmitting}
           className="w-full flex items-center gap-1.5 cursor-pointer py-4.5 rounded-xl bg-indigo-velvet hover:bg-lavender-purple"
         >
           {form.formState.isSubmitting ? (
