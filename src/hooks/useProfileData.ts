@@ -2,15 +2,14 @@
 // later on we will get it from the DB
 
 import apiClient from "@/api/apiClient";
+import { MYPROFILEURL } from "@/api/url_helper";
 import type { profileData } from "@/types";
+import { handleAxiosError } from "@/utils/toasterUtils";
 import { useAuth } from "@clerk/react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { toast } from "sonner";
 
 export const useProfileData = () => {
   const { getToken, isLoaded } = useAuth();
-  const { id: profileId } = useParams();
   const [profileData, setProfileData] = useState<profileData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -22,7 +21,7 @@ export const useProfileData = () => {
         setIsLoading(false);
         return;
       }
-      const response = await apiClient.get(`/profiles/${profileId}`, {
+      const response = await apiClient.get(MYPROFILEURL, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -30,21 +29,19 @@ export const useProfileData = () => {
       });
       setProfileData(response?.data?.profile);
     } catch (error) {
-      toast.error(error?.message, {
-        position: "top-right",
-      });
+      handleAxiosError(error);
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    if (profileId && isLoaded) {
+    if (isLoaded) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       handleGetProfileData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profileId, isLoaded]);
+  }, [isLoaded]);
 
   return { data: profileData, isLoading: isLoading || !isLoaded };
 };

@@ -5,9 +5,9 @@ import { PencilIcon } from "lucide-react";
 import { Fragment, type ReactNode } from "react";
 import { Link } from "react-router";
 import ProjectsLists from "@/components/projects/ProjectsLists";
-import LinkedinSVG from "@/components/icons/LinkedinSVG";
 import GlobeSVG from "@/components/icons/GlobeSVG";
 import GithubSVG from "@/components/icons/GithubSVG";
+import LinkedinSVG from "@/components/icons/LinkedInSVG";
 
 import {
   Tooltip,
@@ -15,6 +15,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import ProfilePageLoader from "@/components/profile/ProfilePageLoader";
+import { profilePaths } from "@/data/routesPaths";
 
 const ProfilePage = () => {
   // @TODO: implement getting data from DB
@@ -108,7 +109,7 @@ const ProfilePage = () => {
             {/* TODO: implement Authintication */}
             <div className="flex items-center justify-center">
               <Link
-                to="/profile/edit"
+                to={profilePaths.editProfile.replace(`:id`, `${data?.id}`)}
                 className="mt-6 px-4 py-2 bg-indigo-velvet text-lavender-mist rounded-lg shadow-indigo-velvet hover:bg-wisteria transition-colors duration-300 flex items-center gap-1"
               >
                 <PencilIcon className="size-4" />

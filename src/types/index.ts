@@ -18,6 +18,7 @@ export interface userData {
 }
 
 export interface profileData {
+  id: string;
   title: string;
   description: string;
   skills: string[];
