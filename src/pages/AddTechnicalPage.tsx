@@ -2,7 +2,7 @@ import AddTechnicalDetailsForm from "@/components/forms/TechnicalDetails/AddTech
 
 const AddTechnicalPage = () => {
   return (
-    <section className="flex items-center justify-center my-10">
+    <section className="flex items-center justify-center">
       <AddTechnicalDetailsForm />
     </section>
   );

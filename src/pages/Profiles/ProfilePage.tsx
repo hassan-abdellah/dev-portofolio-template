@@ -2,7 +2,7 @@ import YoutubeSVG from "@/components/icons/YoutubeSVG";
 import { useProfileData } from "@/hooks/useProfileData";
 import clsx from "clsx";
 import { PencilIcon } from "lucide-react";
-import { Fragment, type ReactNode } from "react";
+import { Fragment, useMemo, type ReactNode } from "react";
 import { Link } from "react-router";
 import ProjectsLists from "@/components/projects/ProjectsLists";
 import GlobeSVG from "@/components/icons/GlobeSVG";
@@ -16,8 +16,11 @@ import {
 } from "@/components/ui/tooltip";
 import ProfilePageLoader from "@/components/profile/ProfilePageLoader";
 import { profilePaths } from "@/data/routesPaths";
+import { useAuth } from "@clerk/react";
 
 const ProfilePage = () => {
+  const { isSignedIn, userId } = useAuth();
+
   // @TODO: implement getting data from DB
   const { data, isLoading } = useProfileData();
 
@@ -51,6 +54,11 @@ const ProfilePage = () => {
     ),
   };
 
+  // check it the user who views the profile is the owener or not
+  const isUserOwner = useMemo(() => {
+    return isSignedIn && userId === data?.user?.clerkId ? true : false;
+  }, [isSignedIn, userId, data?.user?.clerkId]);
+
   return (
     <Fragment>
       {isLoading ? (
@@ -58,7 +66,7 @@ const ProfilePage = () => {
       ) : (
         <section className="relative">
           {/* header */}
-          <div className="flex flex-col items-center justify-center bg-lavender-purple h-100 w-screen rounded-b-4xl">
+          <div className="flex flex-col items-center justify-center bg-lavender-purple h-100 w-full rounded-b-4xl">
             {/* image */}
             <div className="w-16 h-16 rounded-full bg-lavender-mist border-2 border-indigo-velvet">
               <img
@@ -106,16 +114,20 @@ const ProfilePage = () => {
             ) : null}
 
             {/* CTA */}
-            {/* TODO: implement Authintication */}
-            <div className="flex items-center justify-center">
-              <Link
-                to={profilePaths.editProfile.replace(`:id`, `${data?.id}`)}
-                className="mt-6 px-4 py-2 bg-indigo-velvet text-lavender-mist rounded-lg shadow-indigo-velvet hover:bg-wisteria transition-colors duration-300 flex items-center gap-1"
-              >
-                <PencilIcon className="size-4" />
-                <span>Edit Profile</span>
-              </Link>
-            </div>
+            {isUserOwner ? (
+              <div className="flex items-center justify-center">
+                <Link
+                  to={profilePaths.editProfile.replace(`:id`, `${data?.id}`)}
+                  className="mt-6 px-4 py-2 bg-indigo-velvet text-lavender-mist rounded-lg shadow-indigo-velvet hover:bg-wisteria transition-colors duration-300 flex items-center gap-1"
+                >
+                  <PencilIcon className="size-4" />
+                  <span>Edit Profile</span>
+                </Link>
+                {/* TODO: implement share profile button */}
+
+                {/* TODO: implement Upload CSV Button */}
+              </div>
+            ) : null}
           </div>
 
           {/* Projects Showcase */}

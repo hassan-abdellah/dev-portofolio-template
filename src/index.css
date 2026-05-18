@@ -91,6 +91,8 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  --nav-height: 45px;
 }
 
 .dark {
@@ -161,4 +163,14 @@
   .container {
     @apply xl:max-w-7xl sm:max-w-[calc(100%-7rem)] max-w-[calc(100%-2rem)] mx-auto;
   }
+  .page-height {
+    @apply h-[calc(100%-var(--nav-height))];
+  }
+}
+
+/* for clerk footer in user dropdown */
+/* for clerk footer in auth forms */
+.cl-internal-l2l775,
+.cl-internal-1dauvpw {
+  display: none !important;
 }
