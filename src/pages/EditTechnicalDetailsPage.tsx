@@ -2,7 +2,7 @@ import UpdateTechnicalDetailsForm from "@/components/forms/TechnicalDetails/Upda
 
 const EditTechnicalDetailsPage = () => {
   return (
-    <section className="flex items-center justify-center my-10">
+    <section className="flex items-center justify-center">
       <UpdateTechnicalDetailsForm />
     </section>
   );
