@@ -15,11 +15,18 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { CheckCircleIcon } from "lucide-react";
-import { toast } from "sonner";
 import ProjectFormInputs from "./ProjectFormInputs";
+import { useAuth } from "@clerk/react";
+import apiClient from "@/api/apiClient";
+import { PROJECTSURL } from "@/api/url_helper";
+import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
 
-const CreateProjectModal = () => {
+const CreateProjectModal = ({
+  profileId,
+}: {
+  profileId: string | undefined;
+}) => {
+  const { getToken } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
   const form = useForm<z.infer<typeof projectFormSchema>>({
@@ -28,20 +35,45 @@ const CreateProjectModal = () => {
       title: "",
       description: "",
       project_image: null,
-      project_url: null,
+      project_url: "",
     },
     mode: "onChange",
   });
 
-  function handleAddProject(data: z.infer<typeof projectFormSchema>) {
-    //   localStorage.removeItem("dev-links");
-    //   localStorage.setItem("dev-links", JSON.stringify(data));
-    console.log("form data", data);
-    toast.success("Project Created Successfully", {
-      position: "top-right",
-      icon: <CheckCircleIcon />,
-    });
-    setIsOpen(false);
+  async function handleAddProject(data: z.infer<typeof projectFormSchema>) {
+    if (!profileId) {
+      return;
+    }
+    try {
+      const token = await getToken(); // JWT to send to your Node backend
+
+      const formData = new FormData();
+      console.log("data", data?.project_image);
+      formData.append("title", data.title);
+      formData.append("description", data.description);
+      if (data.project_image) {
+        formData.append("image", data.project_image);
+      }
+
+      if (data.project_url) {
+        formData.append("preview_url", data.project_url);
+      }
+
+      if (profileId) {
+        formData.append("profile_id", profileId);
+      }
+      await apiClient.post(PROJECTSURL, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": undefined,
+        },
+      });
+      handelSuccessMessage("Data Added Successfully");
+      setIsOpen(false);
+      form.reset();
+    } catch (error) {
+      handleAxiosError(error);
+    }
   }
 
   return (
@@ -77,6 +109,7 @@ const CreateProjectModal = () => {
               <Button
                 form="project-form"
                 type="submit"
+                disabled={form.formState.isSubmitting}
                 className="w-full flex items-center gap-1.5 cursor-pointer py-4.5 rounded-xl bg-indigo-velvet hover:bg-lavender-purple focus-visible:ring-lavender-mist"
               >
                 {form.formState.isSubmitting ? (

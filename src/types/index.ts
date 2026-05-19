@@ -17,6 +17,14 @@ export interface userData {
   createdAt: string;
 }
 
+export interface projectData {
+  id?: string;
+  title: string;
+  description: string;
+  image_url?: string;
+  preview_url?: string;
+}
+
 export interface profileData {
   id: string;
   title: string;
@@ -24,12 +32,5 @@ export interface profileData {
   skills: string[];
   links: platformLink[];
   user?: userData;
-}
-
-export interface projectData {
-  id?: string;
-  title: string;
-  description: string;
-  image_url?: string;
-  project_url?: string;
+  projects?: projectData[];
 }
