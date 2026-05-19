@@ -134,7 +134,7 @@ const ProfilePage = () => {
 
           {/* TODO: implement adding viewing projects */}
 
-          <ProjectsLists />
+          <ProjectsLists projects={data?.projects} profileId={data?.id} />
         </section>
       )}
     </Fragment>
