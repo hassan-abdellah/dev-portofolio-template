@@ -41,7 +41,7 @@ const UpdateProjectModal = ({
       title: projectData?.title ? projectData.title : "",
       description: projectData?.description ? projectData.description : "",
       project_image: projectData?.image_url ? projectData?.image_url : "",
-      project_url: projectData?.preview_url ? projectData?.preview_url : "",
+      project_url: projectData?.preview_url ? projectData?.preview_url : null,
     };
   }, [projectData]);
 
@@ -62,7 +62,7 @@ const UpdateProjectModal = ({
       console.log("data", data?.project_image);
       formData.append("title", data.title);
       formData.append("description", data.description);
-      if (data.project_image) {
+      if (data.project_image && data.project_image instanceof File) {
         formData.append("image", data.project_image);
       }
 
@@ -73,7 +73,7 @@ const UpdateProjectModal = ({
       if (profileId) {
         formData.append("profile_id", profileId);
       }
-      await apiClient.post(PROJECTSURL, formData, {
+      await apiClient.put(`${PROJECTSURL}/${projectData?.id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": undefined,

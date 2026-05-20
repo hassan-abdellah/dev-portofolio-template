@@ -82,6 +82,7 @@ const ProjectFormInputs = ({
             onChange={(files) =>
               field.onChange(files.length > 0 ? files[0] : null)
             }
+            // value={field.value instanceof File ? [field.value] : []}
             value={field.value ? [field.value] : []}
             maxFiles={1}
             invalid={fieldState.invalid}

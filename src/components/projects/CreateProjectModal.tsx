@@ -35,7 +35,7 @@ const CreateProjectModal = ({
       title: "",
       description: "",
       project_image: null,
-      project_url: "",
+      project_url: null,
     },
     mode: "onChange",
   });

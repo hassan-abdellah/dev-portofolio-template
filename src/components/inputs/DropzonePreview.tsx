@@ -14,6 +14,7 @@ const DropzonePreview = ({
   files: File[] | undefined;
   onDeleteFile: (file: File) => void;
 }) => {
+  console.log("files", files);
   return (
     <div className="space-y-1.5 mt-4">
       {Array.from(files || []).map((file, index) => (
@@ -25,7 +26,7 @@ const DropzonePreview = ({
           <div className="flex items-center gap-3">
             {/* image preview */}
             <img
-              src={generateFilePreview(file)}
+              src={typeof file === "string" ? file : generateFilePreview(file)}
               alt={file.name}
               className="w-12 h-12 rounded-md border border-input object-cover"
             />
@@ -34,12 +35,14 @@ const DropzonePreview = ({
             <div className="space-y-1">
               {/* file name */}
               <p className="text-sm text-muted-foreground">
-                {sliceFileName(file.name)}
+                {sliceFileName(typeof file === "string" ? file : file.name)}
               </p>
               {/* file size */}
-              <p className="text-xs text-muted-foreground">
-                {formatBytes(file.size)}
-              </p>
+              {typeof file === "string" ? null : (
+                <p className="text-xs text-muted-foreground">
+                  {formatBytes(file.size)}
+                </p>
+              )}
             </div>
           </div>
 
@@ -47,7 +50,7 @@ const DropzonePreview = ({
           {/* files actions */}
           <div className="flex items-center gap-1">
             <a
-              href={URL.createObjectURL(file)}
+              href={typeof file === "string" ? file : URL.createObjectURL(file)}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Preview File"
