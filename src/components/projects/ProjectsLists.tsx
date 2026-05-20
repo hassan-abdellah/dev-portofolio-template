@@ -11,7 +11,7 @@ const ProjectsLists = ({
   profileOwnerId: string | undefined;
 }) => {
   return (
-    <div className="mt-8">
+    <div className="mt-8 pb-8">
       <h5 className="text-center text-2xl mb-4">Projects</h5>
       {projects?.length ? (
         <ProjectsGrid

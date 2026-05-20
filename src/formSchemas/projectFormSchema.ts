@@ -2,6 +2,19 @@ import * as z from "zod";
 
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 const ACCEPTED_TYPES = ["image/jpeg", "image/png"];
+
+const fileSchema = z
+  .custom<File>((val) => val instanceof File, {
+    message: "Please select a file",
+  })
+  .refine((file) => file.size <= MAX_SIZE, "Max size is 5MB")
+  .refine(
+    (file) => ACCEPTED_TYPES.includes(file.type),
+    "Only JPG, PNG allowed",
+  );
+
+const fileURLSchema = z.url("Please Enter a valid URL");
+
 export const projectFormSchema = z.object({
   title: z
     .string()
@@ -13,14 +26,5 @@ export const projectFormSchema = z.object({
     .max(100, "Project Description must be at most 100 characters."),
 
   project_url: z.url("Please enter a valid URL").nullable(),
-  project_image: z
-    .custom<File>((val) => val instanceof File, {
-      message: "Please select a file",
-    })
-    .refine((file) => file.size <= MAX_SIZE, "Max size is 5MB")
-    .refine(
-      (file) => ACCEPTED_TYPES.includes(file.type),
-      "Only JPG, PNG allowed",
-    )
-    .nullable(),
+  project_image: z.union([fileSchema, fileURLSchema]).nullable(),
 });
