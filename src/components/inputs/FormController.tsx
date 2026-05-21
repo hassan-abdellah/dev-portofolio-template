@@ -15,6 +15,7 @@ const FormController = ({
   invalid,
   fieldClassNames,
   isRequired = false,
+  isReadonly = false,
 }: {
   id: string;
   label: string;
@@ -27,6 +28,7 @@ const FormController = ({
   invalid: boolean;
   fieldClassNames?: string;
   isRequired?: boolean;
+  isReadonly?: boolean;
 }) => {
   return (
     <Field data-invalid={invalid} className={fieldClassNames}>
@@ -46,6 +48,7 @@ const FormController = ({
         aria-invalid={invalid}
         autoComplete="off"
         className="input-field"
+        readOnly={isReadonly}
       />
       {invalid && <FormErrorMessage error={error} />}
     </Field>
