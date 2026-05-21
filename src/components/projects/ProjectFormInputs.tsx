@@ -8,8 +8,10 @@ import DropzoneField from "../inputs/DropzoneField";
 
 const ProjectFormInputs = ({
   form,
+  isViewMode = false,
 }: {
   form: UseFormReturn<projectFormValues>;
+  isViewMode?: boolean;
 }) => {
   return (
     <Fragment>
@@ -29,6 +31,7 @@ const ProjectFormInputs = ({
             onBlur={field.onBlur}
             error={fieldState.error?.message}
             isRequired={true}
+            isReadonly={isViewMode}
           />
         )}
       />
@@ -48,6 +51,7 @@ const ProjectFormInputs = ({
             onBlur={field.onBlur}
             error={fieldState.error?.message}
             isRequired={true}
+            isReadonly={isViewMode}
           />
         )}
       />
@@ -67,6 +71,7 @@ const ProjectFormInputs = ({
             onchange={field.onChange}
             onBlur={field.onBlur}
             error={fieldState.error?.message}
+            isReadonly={isViewMode}
           />
         )}
       />
@@ -87,6 +92,7 @@ const ProjectFormInputs = ({
             maxFiles={1}
             invalid={fieldState.invalid}
             error={fieldState.error?.message}
+            disabled={isViewMode}
           />
         )}
       />

@@ -20,11 +20,14 @@ import { useAuth } from "@clerk/react";
 import apiClient from "@/api/apiClient";
 import { PROJECTSURL } from "@/api/url_helper";
 import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
+import { PlusIcon } from "lucide-react";
 
 const CreateProjectModal = ({
   profileId,
+  buttonTitle = "Create Project",
 }: {
   profileId: string | undefined;
+  buttonTitle?: string;
 }) => {
   const { getToken } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
@@ -68,7 +71,7 @@ const CreateProjectModal = ({
           "Content-Type": undefined,
         },
       });
-      handelSuccessMessage("Data Added Successfully");
+      handelSuccessMessage("Project Added Successfully");
       setIsOpen(false);
       form.reset();
     } catch (error) {
@@ -83,12 +86,13 @@ const CreateProjectModal = ({
         className="py-4.5 bg-dark-amethyst hover:bg-lavender-purple transition-colors duration-200 cursor-pointer"
         onClick={() => setIsOpen(true)}
       >
-        Create Project
+        <PlusIcon />
+        {buttonTitle}
       </Button>
       {isOpen && (
         <Dialog open={isOpen} onOpenChange={setIsOpen} modal={true}>
           <DialogContent
-            className="px-0 border-lavender-mist w-xl sm:max-w-lg card-width"
+            className="px-0 border-lavender-mist w-xl h-[calc(100%-30px)] sm:max-w-lg card-width"
             onInteractOutside={(e) => e.preventDefault()}
           >
             {/* Dialog Header */}

@@ -161,7 +161,7 @@
   }
 
   .container {
-    @apply xl:max-w-7xl sm:max-w-[calc(100%-7rem)] max-w-[calc(100%-2rem)] mx-auto;
+    @apply xl:max-w-7xl lg:max-w-[calc(100%-7rem)] max-w-[calc(100%-2rem)] mx-auto;
   }
   .page-height {
     @apply h-[calc(100%-var(--nav-height))];

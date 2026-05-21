@@ -22,6 +22,7 @@ import { PROJECTSURL } from "@/api/url_helper";
 import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
 import { useProjectsData } from "@/hooks/useProjectsData";
 import UpdateProjectLoader from "./UpdateProjectLoader";
+import { PencilIcon } from "lucide-react";
 
 const UpdateProjectModal = ({
   profileId,
@@ -79,7 +80,7 @@ const UpdateProjectModal = ({
           "Content-Type": undefined,
         },
       });
-      handelSuccessMessage("Data Added Successfully");
+      handelSuccessMessage("Project Updated Successfully");
       setIsOpen(false);
       form.reset();
     } catch (error) {
@@ -95,10 +96,11 @@ const UpdateProjectModal = ({
     <>
       {/* Dialog trigger */}
       <Button
-        className="flex-1 py-5 cursor-pointer bg-dark-amethyst hover:bg-midnight-violet transition-colors duration-300"
+        className="cursor-pointer rounded-full flex items-center justify-center w-10 h-10 bg-dark-amethyst hover:bg-midnight-violet transition-colors duration-300"
         onClick={() => setIsOpen(true)}
+        aria-label="Edit Project"
       >
-        Edit
+        <PencilIcon />
       </Button>
       {isOpen && (
         <Dialog open={isOpen} onOpenChange={setIsOpen} modal={true}>

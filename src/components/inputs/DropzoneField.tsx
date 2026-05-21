@@ -15,6 +15,7 @@ const DropzoneField = ({
   fieldClassNames,
   maxFiles = 1,
   multiple = false,
+  disabled = false,
 }: {
   id: string;
   label: string;
@@ -25,11 +26,13 @@ const DropzoneField = ({
   fieldClassNames?: string;
   maxFiles: number;
   multiple?: boolean;
+  disabled?: boolean;
 }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: (accepted) => onChange(accepted),
     maxFiles: maxFiles ? maxFiles : undefined,
     multiple: multiple,
+    disabled: disabled,
   });
 
   // handle delete file
@@ -69,7 +72,11 @@ const DropzoneField = ({
       {invalid && <FormErrorMessage error={error} />}
       {/* Preview  */}
       {files?.length ? (
-        <DropzonePreview files={files} onDeleteFile={handleDeleteFile} />
+        <DropzonePreview
+          isViewMode={disabled}
+          files={files}
+          onDeleteFile={handleDeleteFile}
+        />
       ) : null}
     </Field>
   );

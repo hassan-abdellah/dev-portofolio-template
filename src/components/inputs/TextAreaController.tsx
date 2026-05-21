@@ -19,6 +19,7 @@ const TextAreaController = ({
   error,
   invalid,
   isRequired = false,
+  isReadonly = false,
 }: {
   id: string;
   label: string;
@@ -30,6 +31,7 @@ const TextAreaController = ({
   error: string | undefined;
   invalid: boolean;
   isRequired?: boolean;
+  isReadonly?: boolean;
 }) => {
   return (
     <Field data-invalid={invalid}>
@@ -49,6 +51,7 @@ const TextAreaController = ({
           className="min-h-24 resize-none"
           aria-invalid={invalid}
           maxLength={100}
+          readOnly={isReadonly}
         />
         <InputGroupAddon align="block-end">
           <InputGroupText className="tabular-nums text-muted-black">

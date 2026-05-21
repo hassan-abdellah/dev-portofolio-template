@@ -10,9 +10,11 @@ import PreviewSVG from "../icons/PreviewSVG";
 const DropzonePreview = ({
   files,
   onDeleteFile,
+  isViewMode = false,
 }: {
   files: File[] | undefined;
   onDeleteFile: (file: File) => void;
+  isViewMode?: boolean;
 }) => {
   console.log("files", files);
   return (
@@ -60,18 +62,20 @@ const DropzonePreview = ({
               <PreviewSVG className="w-4 h-4" />
             </a>
             {/* remove file button */}
-            <Button
-              variant="ghost"
-              aria-label="Remove File"
-              onClick={() => onDeleteFile(file)}
-              className="rounded-full p-2 text-destructive hover:text-red-600 focus-visible:bg-muted focus-visible:text-destructive focus-visible:outline-0 focus-visible:ring-0 focus-visible:border-0 transition-colors duration-300 cursor-pointer"
-            >
-              <Delete
-                className="w-4 h-4 stroke-destructive"
-                width={16}
-                height={16}
-              />
-            </Button>
+            {!isViewMode ? (
+              <Button
+                variant="ghost"
+                aria-label="Remove File"
+                onClick={() => onDeleteFile(file)}
+                className="rounded-full p-2 text-destructive hover:text-red-600 focus-visible:bg-muted focus-visible:text-destructive focus-visible:outline-0 focus-visible:ring-0 focus-visible:border-0 transition-colors duration-300 cursor-pointer"
+              >
+                <Delete
+                  className="w-4 h-4 stroke-destructive"
+                  width={16}
+                  height={16}
+                />
+              </Button>
+            ) : null}
           </div>
         </div>
       ))}
