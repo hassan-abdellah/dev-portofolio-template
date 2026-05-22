@@ -34,3 +34,8 @@ export interface profileData {
   user?: userData;
   projects?: projectData[];
 }
+
+export interface ProfileResponse {
+  status: boolean;
+  profile: profileData;
+}

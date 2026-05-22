@@ -1,59 +1,21 @@
-import YoutubeSVG from "@/components/icons/YoutubeSVG";
-import { useProfileData } from "@/hooks/useProfileData";
-import clsx from "clsx";
 import { PencilIcon } from "lucide-react";
-import { Fragment, useMemo, type ReactNode } from "react";
+import { Fragment, useMemo } from "react";
 import { Link } from "react-router";
 import ProjectsLists from "@/components/projects/ProjectsLists";
-import GlobeSVG from "@/components/icons/GlobeSVG";
-import GithubSVG from "@/components/icons/GithubSVG";
-import LinkedinSVG from "@/components/icons/LinkedInSVG";
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import ProfilePageLoader from "@/components/profile/ProfilePageLoader";
 import { profilePaths } from "@/data/routesPaths";
 import { useAuth } from "@clerk/react";
 import AvatarPlaceholder from "@/assets/images/avatar-placeholder.svg";
+import { usePlatformIcons } from "@/hooks/usePlatformIcons";
+import { useProfile } from "@/hooks/useProfiles";
 
 const ProfilePage = () => {
   const { isSignedIn, userId } = useAuth();
 
-  // @TODO: implement getting data from DB
-  const { data, isLoading } = useProfileData();
+  const { data, isLoading } = useProfile();
 
-  const PLATFORM_Icons: Record<string, ReactNode> = {
-    youtube: (
-      <YoutubeSVG strokeClassNames={clsx("fill-lavender-mist")} classNames="" />
-    ),
-    github: (
-      <Tooltip>
-        <TooltipTrigger>
-          <GithubSVG className={"fill-lavender-mist"} />
-        </TooltipTrigger>
-        <TooltipContent>Github</TooltipContent>
-      </Tooltip>
-    ),
-    linkedin: (
-      <Tooltip>
-        <TooltipTrigger>
-          <LinkedinSVG className="stroke-lavender-mist" />
-        </TooltipTrigger>
-        <TooltipContent>LinkedIn</TooltipContent>
-      </Tooltip>
-    ),
-    others: (
-      <Tooltip>
-        <TooltipTrigger>
-          <GlobeSVG className={"stroke-lavender-mist"} />
-        </TooltipTrigger>
-        <TooltipContent>Websit</TooltipContent>
-      </Tooltip>
-    ),
-  };
+  const { PLATFORM_Icons } = usePlatformIcons();
 
   // check it the user who views the profile is the owener or not
   const isUserOwner = useMemo(() => {

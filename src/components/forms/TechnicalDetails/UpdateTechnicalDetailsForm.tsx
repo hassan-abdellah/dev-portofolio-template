@@ -11,25 +11,21 @@ import { technicalDetailsSchema } from "@/formSchemas/techincalDetailsFormSchema
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { Spinner } from "../../ui/spinner";
-import { useProfileData } from "@/hooks/useProfileData";
 import TechnicalFormInputs from "./TechnicalFormInputs";
 import UpdateProfileLoader from "@/components/profile/UpdateProfileLoader";
 import { useEffect, useMemo } from "react";
-import { useAuth } from "@clerk/react";
-import apiClient from "@/api/apiClient";
 import { useNavigate, useParams } from "react-router";
 import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
-import { PROFILESURL } from "@/api/url_helper";
 import { profilePaths } from "@/data/routesPaths";
+import { useProfile, useUpdateProfile } from "@/hooks/useProfiles";
 
 const UpdateTechnicalDetailsForm = () => {
-  // @TODO: implement getting data from DB
-  const { getToken } = useAuth();
   const { id: profileId } = useParams();
   const navigate = useNavigate();
-  const { data: profileData, isLoading } = useProfileData();
+
+  const { data: profileData, isLoading } = useProfile();
+  const updateProfile = useUpdateProfile();
 
   const defualtValues = useMemo(() => {
     return {
@@ -56,20 +52,8 @@ const UpdateTechnicalDetailsForm = () => {
     data: z.infer<typeof technicalDetailsSchema>,
   ) => {
     try {
-      const token = await getToken(); // JWT to send to your Node backend
-      await apiClient.put(
-        `${PROFILESURL}/${profileId}`,
-        {
-          title: data.title,
-          description: data.description,
-          skills: data.skills,
-          links: data.links,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      );
-
+      if (!profileId) return;
+      await updateProfile.mutateAsync({ profileId: profileId, data });
       handelSuccessMessage("Data Upadted Successfully");
       navigate(profilePaths.myProfile);
     } catch (error) {
