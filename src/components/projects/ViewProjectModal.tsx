@@ -48,7 +48,7 @@ const ViewProjectModal = ({ projectId }: { projectId: string | undefined }) => {
     <>
       {/* Dialog trigger */}
       <Button
-        className="cursor-pointer rounded-full flex items-center justify-center w-10 h-10 bg-gray-400 hover:bg-gray-500 transition-colors duration-300"
+        className="rounded-icon-button bg-gray-400 hover:bg-gray-500"
         onClick={() => setIsOpen(true)}
         aria-label="View Project"
       >
