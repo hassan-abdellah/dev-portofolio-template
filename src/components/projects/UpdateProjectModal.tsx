@@ -96,7 +96,7 @@ const UpdateProjectModal = ({
     <>
       {/* Dialog trigger */}
       <Button
-        className="cursor-pointer rounded-full flex items-center justify-center w-10 h-10 bg-dark-amethyst hover:bg-midnight-violet transition-colors duration-300"
+        className="rounded-icon-button bg-dark-amethyst hover:bg-midnight-violet"
         onClick={() => setIsOpen(true)}
         aria-label="Edit Project"
       >

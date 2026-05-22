@@ -54,6 +54,7 @@ const DropzoneField = ({
           {
             "border-input": !invalid,
             "border-destructive": invalid,
+            "bg-gray-100 pointer-events-none": disabled,
           },
         )}
       >

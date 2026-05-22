@@ -166,11 +166,16 @@
   .page-height {
     @apply h-[calc(100%-var(--nav-height))];
   }
+  .rounded-icon-button {
+    @apply rounded-full flex items-center justify-center w-10 h-10 cursor-pointer text-white transition-colors duration-300;
+  }
 }
 
 /* for clerk footer in user dropdown */
 /* for clerk footer in auth forms */
 .cl-internal-l2l775,
-.cl-internal-1dauvpw {
+.cl-internal-1dauvpw,
+.cl-internal-1n0t203,
+.cl-internal-1ww4jbf {
   display: none !important;
 }

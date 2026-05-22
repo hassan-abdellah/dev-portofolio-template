@@ -52,6 +52,7 @@ const TextAreaController = ({
           aria-invalid={invalid}
           maxLength={100}
           readOnly={isReadonly}
+          disabled={isReadonly}
         />
         <InputGroupAddon align="block-end">
           <InputGroupText className="tabular-nums text-muted-black">

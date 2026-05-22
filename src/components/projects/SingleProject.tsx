@@ -9,8 +9,9 @@ import apiClient from "@/api/apiClient";
 import { PROJECTSURL } from "@/api/url_helper";
 import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
 import LoadingModal from "../common/LoadingModal";
-import { GlobeIcon, TrashIcon } from "lucide-react";
+import { TrashIcon } from "lucide-react";
 import ViewProjectModal from "./ViewProjectModal";
+import PreviewProjectButton from "./PreviewProjectButton";
 
 const SingleProject = ({
   profileId,
@@ -65,13 +66,7 @@ const SingleProject = ({
           {isUserOwner ? (
             <div className="flex items-center gap-1.5">
               {project.preview_url ? (
-                <a
-                  target="_blank"
-                  href={project.preview_url}
-                  className="rounded-full flex items-center justify-center w-10 h-10 bg-indigo-velvet cursor-pointer text-white  hover:bg-wisteria transition-colors duration-300"
-                >
-                  <GlobeIcon />
-                </a>
+                <PreviewProjectButton preview_url={project.preview_url} />
               ) : null}
               {/* Update Project */}
               <UpdateProjectModal
@@ -90,7 +85,8 @@ const SingleProject = ({
                 trigger={(setOpen) => (
                   <Button
                     type="button"
-                    className="rounded-full flex items-center justify-center w-10 h-10 bg-destructive cursor-pointer hover:bg-destructive/50 transition-colors duration-300"
+                    className="rounded-icon-button bg-destructive hover:bg-red-500"
+                    aria-label="Delete Project"
                     onClick={() => setOpen(true)}
                   >
                     <TrashIcon />
@@ -101,13 +97,7 @@ const SingleProject = ({
           ) : (
             <Fragment>
               {project.preview_url ? (
-                <a
-                  target="_blank"
-                  href={project.preview_url}
-                  className="rounded-full flex items-center justify-center w-10 h-10 bg-indigo-velvet cursor-pointer text-white hover:bg-wisteria transition-colors duration-300"
-                >
-                  <GlobeIcon />
-                </a>
+                <PreviewProjectButton preview_url={project.preview_url} />
               ) : null}
             </Fragment>
           )}

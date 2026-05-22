@@ -17,6 +17,7 @@ import {
 import ProfilePageLoader from "@/components/profile/ProfilePageLoader";
 import { profilePaths } from "@/data/routesPaths";
 import { useAuth } from "@clerk/react";
+import AvatarPlaceholder from "@/assets/images/avatar-placeholder.svg";
 
 const ProfilePage = () => {
   const { isSignedIn, userId } = useAuth();
@@ -68,9 +69,11 @@ const ProfilePage = () => {
           {/* header */}
           <div className="flex flex-col items-center justify-center bg-lavender-purple h-100 w-full rounded-b-4xl">
             {/* image */}
-            <div className="w-16 h-16 rounded-full bg-lavender-mist border-2 border-indigo-velvet">
+            <div className="w-18 h-18 rounded-full bg-lavender-mist border-2 border-indigo-velvet">
               <img
-                src={data?.user?.avatar}
+                src={
+                  data?.user?.avatar ? data?.user?.avatar : AvatarPlaceholder
+                }
                 className="w-full h-full rounded-full"
                 alt={data?.user?.name}
               />

@@ -49,6 +49,7 @@ const FormController = ({
         autoComplete="off"
         className="input-field"
         readOnly={isReadonly}
+        disabled={isReadonly}
       />
       {invalid && <FormErrorMessage error={error} />}
     </Field>
