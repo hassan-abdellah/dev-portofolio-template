@@ -11,19 +11,16 @@ import { technicalDetailsSchema } from "@/formSchemas/techincalDetailsFormSchema
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { Spinner } from "../../ui/spinner";
 import TechnicalFormInputs from "./TechnicalFormInputs";
-import apiClient from "@/api/apiClient";
-import { useAuth } from "@clerk/react";
 import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
-import { PROFILESURL } from "@/api/url_helper";
 import { profilePaths } from "@/data/routesPaths";
 import { useNavigate } from "react-router";
+import { useCreateProfile } from "@/hooks/useProfiles";
 
 const AddTechnicalDetailsForm = () => {
-  const { getToken } = useAuth();
   const navigate = useNavigate();
+  const createProfile = useCreateProfile();
 
   const form = useForm<z.infer<typeof technicalDetailsSchema>>({
     resolver: zodResolver(technicalDetailsSchema),
@@ -38,19 +35,7 @@ const AddTechnicalDetailsForm = () => {
 
   async function handleAddData(data: z.infer<typeof technicalDetailsSchema>) {
     try {
-      const token = await getToken(); // JWT to send to your Node backend
-      await apiClient.post(
-        PROFILESURL,
-        {
-          title: data.title,
-          description: data.description,
-          skills: data.skills,
-          links: data.links,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      );
+      await createProfile.mutateAsync(data);
       handelSuccessMessage("Data Added Successfully");
       navigate(profilePaths.myProfile);
     } catch (error) {
