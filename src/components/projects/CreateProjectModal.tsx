@@ -16,11 +16,9 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import ProjectFormInputs from "./ProjectFormInputs";
-import { useAuth } from "@clerk/react";
-import apiClient from "@/api/apiClient";
-import { PROJECTSURL } from "@/api/url_helper";
 import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
 import { PlusIcon } from "lucide-react";
+import { useCreateProject } from "@/hooks/useProjects";
 
 const CreateProjectModal = ({
   profileId,
@@ -29,8 +27,8 @@ const CreateProjectModal = ({
   profileId: string | undefined;
   buttonTitle?: string;
 }) => {
-  const { getToken } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const createProject = useCreateProject();
 
   const form = useForm<z.infer<typeof projectFormSchema>>({
     resolver: zodResolver(projectFormSchema),
@@ -48,28 +46,12 @@ const CreateProjectModal = ({
       return;
     }
     try {
-      const token = await getToken(); // JWT to send to your Node backend
-
-      const formData = new FormData();
-      console.log("data", data?.project_image);
-      formData.append("title", data.title);
-      formData.append("description", data.description);
-      if (data.project_image) {
-        formData.append("image", data.project_image);
-      }
-
-      if (data.project_url) {
-        formData.append("preview_url", data.project_url);
-      }
-
-      if (profileId) {
-        formData.append("profile_id", profileId);
-      }
-      await apiClient.post(PROJECTSURL, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": undefined,
-        },
+      await createProject.mutateAsync({
+        title: data.title,
+        description: data.description,
+        project_url: data.project_url ? data.project_url : undefined,
+        profile_id: profileId ? profileId : undefined,
+        image: data.project_image,
       });
       handelSuccessMessage("Project Added Successfully");
       setIsOpen(false);

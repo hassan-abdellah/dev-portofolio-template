@@ -25,6 +25,15 @@ export interface projectData {
   preview_url?: string;
 }
 
+export interface ProjectResponse {
+  status: boolean;
+  projects: projectData[];
+}
+export interface SingleProjectResponse {
+  status: boolean;
+  project: projectData;
+}
+
 export interface profileData {
   id: string;
   title: string;

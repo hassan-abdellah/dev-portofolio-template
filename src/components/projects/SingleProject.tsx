@@ -4,14 +4,12 @@ import { Fragment, useState } from "react";
 import { Button } from "../ui/button";
 import UpdateProjectModal from "./UpdateProjectModal";
 import DeleteModal from "../common/DeleteModal";
-import { useAuth } from "@clerk/react";
-import apiClient from "@/api/apiClient";
-import { PROJECTSURL } from "@/api/url_helper";
 import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
 import LoadingModal from "../common/LoadingModal";
 import { TrashIcon } from "lucide-react";
 import ViewProjectModal from "./ViewProjectModal";
 import PreviewProjectButton from "./PreviewProjectButton";
+import { useDeleteProject } from "@/hooks/useProjects";
 
 const SingleProject = ({
   profileId,
@@ -24,7 +22,7 @@ const SingleProject = ({
 }) => {
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const { getToken } = useAuth();
+  const deleteProject = useDeleteProject();
 
   // Delete Project From DB
   async function handleDeleteProject(projectId: string | undefined) {
@@ -33,13 +31,8 @@ const SingleProject = ({
     }
     setIsDeleting(true);
     try {
-      const token = await getToken(); // JWT to send to your Node backend
+      await deleteProject.mutateAsync(projectId);
 
-      await apiClient.delete(`${PROJECTSURL}/${projectId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
       handelSuccessMessage("Project Deleted Successfully");
     } catch (error) {
       handleAxiosError(error);
@@ -50,7 +43,7 @@ const SingleProject = ({
 
   return (
     <>
-      <div>
+      <div className="flex flex-col gap-4">
         {/* image */}
         <div className="border-2 border-lavender-purple rounded-xl w-full h-64 overflow-hidden">
           <img
@@ -60,9 +53,9 @@ const SingleProject = ({
           />
         </div>
         {/* Project Details */}
-        <div className="mt-4 flex flex-col gap-2 px-2">
+        <div className="flex flex-col flex-1 gap-2 px-2">
           <h2 className="text-dark-amethyst">{project.title}</h2>
-          <p className="text-gray-400">{project.description}</p>
+          <p className="text-gray-400 flex-1">{project.description}</p>
           {isUserOwner ? (
             <div className="flex items-center gap-1.5">
               {project.preview_url ? (

@@ -15,15 +15,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import ProjectFormInputs from "./ProjectFormInputs";
 
-import { useProjectsData } from "@/hooks/useProjectsData";
 import UpdateProjectLoader from "./UpdateProjectLoader";
 import { EyeIcon } from "lucide-react";
+import { useProject } from "@/hooks/useProjects";
 
 const ViewProjectModal = ({ projectId }: { projectId: string | undefined }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { data: projectData, isLoading } = useProjectsData({
-    projectId: isOpen ? projectId : undefined,
-  });
+
+  const { data: projectData, isLoading } = useProject(projectId, isOpen);
 
   const defualtValues = useMemo(() => {
     return {

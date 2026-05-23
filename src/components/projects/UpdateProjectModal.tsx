@@ -16,13 +16,10 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import ProjectFormInputs from "./ProjectFormInputs";
-import { useAuth } from "@clerk/react";
-import apiClient from "@/api/apiClient";
-import { PROJECTSURL } from "@/api/url_helper";
 import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
-import { useProjectsData } from "@/hooks/useProjectsData";
 import UpdateProjectLoader from "./UpdateProjectLoader";
 import { PencilIcon } from "lucide-react";
+import { useProject, useUpdateProject } from "@/hooks/useProjects";
 
 const UpdateProjectModal = ({
   profileId,
@@ -32,16 +29,16 @@ const UpdateProjectModal = ({
   projectId: string | undefined;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { getToken } = useAuth();
-  const { data: projectData, isLoading } = useProjectsData({
-    projectId: isOpen ? projectId : undefined,
-  });
+
+  const updateProject = useUpdateProject();
+
+  const { data: projectData, isLoading } = useProject(projectId, isOpen);
 
   const defualtValues = useMemo(() => {
     return {
       title: projectData?.title ? projectData.title : "",
       description: projectData?.description ? projectData.description : "",
-      project_image: projectData?.image_url ? projectData?.image_url : "",
+      project_image: projectData?.image_url ? projectData?.image_url : null,
       project_url: projectData?.preview_url ? projectData?.preview_url : null,
     };
   }, [projectData]);
@@ -57,29 +54,16 @@ const UpdateProjectModal = ({
       return;
     }
     try {
-      const token = await getToken(); // JWT to send to your Node backend
-
-      const formData = new FormData();
-      console.log("data", data?.project_image);
-      formData.append("title", data.title);
-      formData.append("description", data.description);
-      if (data.project_image && data.project_image instanceof File) {
-        formData.append("image", data.project_image);
-      }
-
-      if (data.project_url) {
-        formData.append("preview_url", data.project_url);
-      }
-
-      if (profileId) {
-        formData.append("profile_id", profileId);
-      }
-      await apiClient.put(`${PROJECTSURL}/${projectData?.id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": undefined,
+      await updateProject.mutateAsync({
+        data: {
+          ...data,
+          image: data.project_image,
+          project_url: data.project_url,
         },
+
+        projectId: projectData?.id ? projectData.id : "",
       });
+
       handelSuccessMessage("Project Updated Successfully");
       setIsOpen(false);
       form.reset();
