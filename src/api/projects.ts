@@ -1,4 +1,5 @@
 import type {
+  paginationMeta,
   projectData,
   ProjectResponse,
   SingleProjectResponse,
@@ -23,9 +24,12 @@ export type projectParamsDTO = {
 export const getMyProjects = async (
   api: AxiosInstance,
   params?: projectParamsDTO | undefined,
-): Promise<projectData[]> => {
+): Promise<{ projects: projectData[]; pagination?: paginationMeta }> => {
   const res: ProjectResponse = await api.get(MyPROJECTSURL, { params });
-  return res.projects;
+  return {
+    projects: res.projects,
+    pagination: res.pagination,
+  };
 };
 // get project
 export const getProject = async (

@@ -1,7 +1,12 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  useInfiniteQuery,
+} from "@tanstack/react-query";
 import { useApi } from "./useApi";
 import { useAuth } from "@clerk/react";
-import type { projectData } from "@/types";
+import type { paginationMeta, projectData } from "@/types";
 import {
   createproject,
   deleteProject,
@@ -24,17 +29,32 @@ export const useProjects = (params: projectParamsDTO = {}) => {
   const { isSignedIn } = useAuth();
   const { getApi } = useApi();
 
-  const query = useQuery<projectData[]>({
+  const query = useInfiniteQuery<{
+    projects: projectData[];
+    pagination?: paginationMeta;
+  }>({
     queryKey: projectKeys.all(params),
-    queryFn: async () => getMyProjects(await getApi(), params),
+    queryFn: async ({ pageParam = 1 }) =>
+      getMyProjects(await getApi(), { ...params, page: pageParam as number }),
+    getNextPageParam: (lastPage) => {
+      const { pagination } = lastPage;
+      if (!pagination) return undefined;
+      const { page, totalPages } = pagination;
+      return page < totalPages ? page + 1 : undefined;
+    },
+    initialPageParam: 1,
     enabled: !!isSignedIn,
   });
 
   return {
-    data: query.data,
+    data: query.data?.pages.flatMap((page) => page.projects) ?? [],
+    pagination: query.data?.pages?.at(-1)?.pagination,
     isLoading: query.isLoading,
     error: query.error,
     isError: query.isError,
+    hasNextPage: query.hasNextPage,
+    isFetchingNextPage: query.isFetchingNextPage,
+    fetchNextPage: query.fetchNextPage,
   };
 };
 

@@ -1,14 +1,19 @@
 import { authPaths, protectedRoutes, publicRoutes } from "@/data/routesPaths";
 import { Show, UserButton } from "@clerk/react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router";
 
 const Navbar = () => {
   return (
-    <header className="bg-transparent h-(--nav-height) py-2.5">
-      <nav className="container flex  justify-between">
+    <header className="sticky z-50 top-0 left-0 right-0 w-full bg-transparent h-(--nav-height) backdrop-blur-3xl flex items-center">
+      <nav className="container flex items-center justify-between">
         {/* logo */}
         <div>
-          <h2>Dev Portofolio</h2>
+          <Link to="/" className="flex items-center gap-0.5 text-xl">
+            <ChevronLeft />
+            <span>Dev Portofolio</span>
+            <ChevronRight />
+          </Link>
         </div>
 
         {/* links */}
