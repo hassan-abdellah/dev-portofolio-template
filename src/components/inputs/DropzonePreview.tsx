@@ -64,6 +64,7 @@ const DropzonePreview = ({
             {/* remove file button */}
             {!isViewMode ? (
               <Button
+                type="button"
                 variant="ghost"
                 aria-label="Remove File"
                 onClick={() => onDeleteFile(file)}

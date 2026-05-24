@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import clsx from "clsx";
 import CreateProjectModal from "./CreateProjectModal";
 import SingleProject from "./SingleProject";
+
 const ProjectsGrid = ({
   projects,
   profileOwnerId,

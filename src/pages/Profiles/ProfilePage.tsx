@@ -9,14 +9,11 @@ import { useAuth } from "@clerk/react";
 import AvatarPlaceholder from "@/assets/images/avatar-placeholder.svg";
 import { usePlatformIcons } from "@/hooks/usePlatformIcons";
 import { useProfile } from "@/hooks/useProfiles";
-import { useProjects } from "@/hooks/useProjects";
 
 const ProfilePage = () => {
   const { isSignedIn, userId } = useAuth();
 
   const { data, isLoading } = useProfile();
-
-  const { data: projects, isLoading: projectLoading } = useProjects();
 
   const { PLATFORM_Icons } = usePlatformIcons();
 
@@ -103,8 +100,6 @@ const ProfilePage = () => {
           {/* TODO: implement adding viewing projects */}
 
           <ProjectsLists
-            projects={projects}
-            isLoading={projectLoading}
             profileId={data?.id}
             profileOwnerId={data?.user?.clerkId}
           />

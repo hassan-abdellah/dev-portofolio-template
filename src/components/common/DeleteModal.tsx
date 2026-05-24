@@ -1,7 +1,6 @@
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -19,6 +18,7 @@ import {
   type ReactNode,
   type SetStateAction,
 } from "react";
+import { Button } from "../ui/button";
 
 const DeleteModal = ({
   modalTitle,
@@ -60,6 +60,7 @@ const DeleteModal = ({
 
           <AlertDialogFooter className="border-t border-gray-100 pb-0 pt-4 px-4 mx-0 mb-0 bg-transparent">
             <AlertDialogAction
+              type="button"
               variant="outline"
               className="cursor-pointer bg-destructive text-white rounded-md px-5 py-4.5 transition-colors duration-350 hover:bg-red-500 hover:text-white"
               onClick={() => handleDelete()}
@@ -67,13 +68,13 @@ const DeleteModal = ({
               Delete
             </AlertDialogAction>
 
-            <AlertDialogCancel
-              variant="outline"
-              className="cursor-pointer bg-dark-amethyst text-white rounded-md px-5 py-4.5 transition-colors duration-350 hover:bg-gray-700 hover:text-white"
+            <Button
+              type="button"
+              className="cursor-pointer bg-dark-amethyst text-white rounded-md px-5 py-4.5 transition-colors duration-350 hover:bg-gray-500 hover:text-white"
               onClick={() => setOpen(false)}
             >
               Close
-            </AlertDialogCancel>
+            </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

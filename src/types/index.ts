@@ -25,9 +25,16 @@ export interface projectData {
   preview_url?: string;
 }
 
+export interface paginationMeta {
+  total: number;
+  page: number;
+  per_page: number;
+  totalPages: number;
+}
 export interface ProjectResponse {
   status: boolean;
   projects: projectData[];
+  pagination?: paginationMeta;
 }
 export interface SingleProjectResponse {
   status: boolean;
