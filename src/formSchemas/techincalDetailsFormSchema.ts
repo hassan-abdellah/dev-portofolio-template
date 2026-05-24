@@ -54,3 +54,21 @@ export const technicalDetailsSchema = z
       }
     });
   });
+
+// upload Profile CV Schema
+
+const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+const ACCEPTED_TYPES = ["application/pdf"];
+
+const fileSchema = z
+  .custom<File>((val) => val instanceof File, {
+    message: "Please select a file",
+  })
+  .refine((file) => file.size <= MAX_SIZE, "Max size is 5MB")
+  .refine((file) => ACCEPTED_TYPES.includes(file.type), "Only PDF allowed");
+
+const fileURLSchema = z.url("Please Enter a valid URL");
+
+export const profileCVSchema = z.object({
+  pdf: z.union([fileSchema, fileURLSchema]).nullable(),
+});
