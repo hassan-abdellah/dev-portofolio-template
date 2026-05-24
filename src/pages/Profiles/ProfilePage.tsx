@@ -9,6 +9,8 @@ import { useAuth } from "@clerk/react";
 import AvatarPlaceholder from "@/assets/images/avatar-placeholder.svg";
 import { usePlatformIcons } from "@/hooks/usePlatformIcons";
 import { useProfile } from "@/hooks/useProfiles";
+import ShareProfileModal from "@/components/profile/ShareProfileModal";
+import UploadProfileCVModal from "@/components/profile/UploadProfileCVModal";
 
 const ProfilePage = () => {
   const { isSignedIn, userId } = useAuth();
@@ -80,24 +82,33 @@ const ProfilePage = () => {
 
             {/* CTA */}
             {isUserOwner ? (
-              <div className="flex items-center justify-center">
+              <div className="mt-4 flex items-center justify-center gap-1.5">
                 <Link
                   to={profilePaths.editProfile.replace(`:id`, `${data?.id}`)}
-                  className="mt-6 px-4 py-2 bg-indigo-velvet text-lavender-mist rounded-lg shadow-indigo-velvet hover:bg-wisteria transition-colors duration-300 flex items-center gap-1"
+                  className="px-4 py-2 bg-indigo-velvet text-lavender-mist rounded-lg shadow-indigo-velvet hover:bg-wisteria transition-colors duration-300 flex items-center gap-1"
+                  aria-label="Edit Portofolio"
                 >
                   <PencilIcon className="size-4" />
-                  <span>Edit Profile</span>
+                  <span>Edit</span>
                 </Link>
-                {/* TODO: implement share profile button */}
+                {/* Share profile button */}
 
-                {/* TODO: implement Upload CSV Button */}
+                <ShareProfileModal
+                  profileId={data?.id}
+                  isShared={data?.is_sharable}
+                />
+
+                {/* Upload CV Button */}
+
+                <UploadProfileCVModal
+                  profileId={data?.id}
+                  cvUrl={data?.csv_url ? data?.csv_url : null}
+                />
               </div>
             ) : null}
           </div>
 
           {/* Projects Showcase */}
-
-          {/* TODO: implement adding viewing projects */}
 
           <ProjectsLists
             profileId={data?.id}

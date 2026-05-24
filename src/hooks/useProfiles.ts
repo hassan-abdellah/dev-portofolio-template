@@ -6,7 +6,9 @@ import {
   createProfile,
   deleteProfile,
   getMyProfile,
+  shareProfile,
   updateProfile,
+  uploadProfileCV,
   type CreateProfileDto,
   type UpdateProfileDto,
 } from "@/api/profiles";
@@ -57,6 +59,40 @@ export const useUpdateProfile = () => {
   >({
     mutationFn: async ({ profileId, data }) =>
       updateProfile(await getApi(), profileId, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: profileKeys.detail() });
+    },
+  });
+};
+
+export const useShareProfile = () => {
+  const queryClient = useQueryClient();
+  const { getApi } = useApi();
+
+  return useMutation<
+    profileData,
+    Error,
+    { profileId: string; data: { is_sharable: boolean } }
+  >({
+    mutationFn: async ({ profileId, data }) =>
+      shareProfile(await getApi(), profileId, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: profileKeys.detail() });
+    },
+  });
+};
+
+export const useUploadProfileCV = () => {
+  const queryClient = useQueryClient();
+  const { getApi } = useApi();
+
+  return useMutation<
+    profileData,
+    Error,
+    { profileId: string; data: { pdf: File | string | null } }
+  >({
+    mutationFn: async ({ profileId, data }) =>
+      uploadProfileCV(await getApi(), profileId, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: profileKeys.detail() });
     },

@@ -21,7 +21,7 @@ export const publicRoutes = [
 ];
 export const protectedRoutes = [
   {
-    title: "My Profile",
+    title: "Portofolio",
     href: profilePaths.myProfile,
   },
   // {

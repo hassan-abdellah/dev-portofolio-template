@@ -25,6 +25,28 @@ export const updateProfile = (
   profileId: string,
   data: UpdateProfileDto,
 ): Promise<profileData> => api.put(`${PROFILESURL}/${profileId}`, data);
+// share Profile
+export const shareProfile = (
+  api: AxiosInstance,
+  profileId: string,
+  data: { is_sharable: boolean },
+): Promise<profileData> => api.put(`${PROFILESURL}/${profileId}/share`, data);
+// upload Profile CV
+export const uploadProfileCV = (
+  api: AxiosInstance,
+  profileId: string,
+  data: { pdf: File | string | null },
+): Promise<profileData> => {
+  const formData = new FormData();
+  if (data.pdf) {
+    formData.append("pdf", data.pdf);
+  }
+  return api.put(`${PROFILESURL}/${profileId}/upload-csv`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
 
 // Delete Profile
 export const deleteProfile = (

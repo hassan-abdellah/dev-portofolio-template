@@ -48,6 +48,8 @@ export interface profileData {
   skills: string[];
   links: platformLink[];
   user?: userData;
+  is_sharable?: boolean;
+  csv_url?: string | null;
   projects?: projectData[];
 }
 
