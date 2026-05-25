@@ -72,7 +72,7 @@ const UploadProfileCVModal = ({
 
       <Button
         type="button"
-        className="h-full cursor-pointer px-4 py-2 bg-gray-400 text-dark-amethyst rounded-lg shadow-indigo-velvet hover:bg-gray-800 hover:text-lavender-mist transition-colors duration-300 flex items-center gap-1"
+        className="cursor-pointer px-4 py-5 bg-gray-300 text-dark-amethyst rounded-lg shadow-indigo-velvet hover:bg-gray-500 hover:text-lavender-mist transition-colors duration-300 flex items-center gap-1"
         onClick={() => setIsOpen(true)}
         aria-label="Upload CV"
       >

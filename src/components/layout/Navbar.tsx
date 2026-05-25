@@ -18,7 +18,7 @@ const Navbar = () => {
 
         {/* links */}
 
-        <ul className="flex gap-2.5">
+        <ul className="flex items-center gap-2.5">
           <Show when="signed-out">
             {publicRoutes.map(({ href, title }) => (
               <li key={href}>
@@ -37,7 +37,7 @@ const Navbar = () => {
               </li>
             ))}
 
-            <li className="md:flex hidden">
+            <li>
               <UserButton signInUrl={authPaths.logIn} />
             </li>
           </Show>

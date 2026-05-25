@@ -28,10 +28,11 @@ const ProfilePageLoader = () => {
           ))}
         </div>
 
-        {/* CTA */}
-        {/* TODO: implement Authintication */}
-        <div className="flex items-center justify-center">
-          <Skeleton className="mt-6 w-30 h-10" />
+        {/* CTAs */}
+        <div className="mt-6 flex items-center gap-1.5 flex-wrap justify-center">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={i} className="w-30 h-10" />
+          ))}
         </div>
       </div>
     </section>
