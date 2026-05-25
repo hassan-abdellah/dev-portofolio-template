@@ -6,6 +6,7 @@ import {
   createProfile,
   deleteProfile,
   getMyProfile,
+  getNonAuthProfile,
   shareProfile,
   updateProfile,
   uploadProfileCV,
@@ -17,6 +18,7 @@ import { Navigate } from "react-router";
 // Centralized query key factory
 export const profileKeys = {
   detail: () => ["profiles"] as const,
+  nonAuthProfile: (profileId: string) => ["profiles", profileId] as const,
 };
 
 export const useProfile = () => {
@@ -27,6 +29,23 @@ export const useProfile = () => {
     queryKey: profileKeys.detail(),
     queryFn: async () => getMyProfile(await getApi()),
     enabled: !!isSignedIn,
+  });
+
+  return {
+    data: query.data,
+    isLoading: query.isLoading,
+    error: query.error,
+    isError: query.isError,
+  };
+};
+
+// non auth profile hook
+
+export const useNonAuthProfile = (profileId: string) => {
+  const query = useQuery<profileData>({
+    queryKey: profileKeys.nonAuthProfile(profileId),
+    queryFn: async () => getNonAuthProfile(profileId),
+    enabled: !!profileId,
   });
 
   return {

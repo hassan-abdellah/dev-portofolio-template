@@ -1,6 +1,7 @@
 import type { profileData, ProfileResponse } from "@/types";
 import { type AxiosInstance } from "axios";
 import { MYPROFILEURL, PROFILESURL } from "./url_helper";
+import { createAxiosInstance } from "./axios";
 
 export type CreateProfileDto = Omit<profileData, "id" | "user" | "projects">;
 export type UpdateProfileDto = CreateProfileDto;
@@ -10,6 +11,17 @@ export const getMyProfile = async (
   api: AxiosInstance,
 ): Promise<profileData> => {
   const res: ProfileResponse = await api.get(MYPROFILEURL);
+  return res.profile;
+};
+
+// get Non-Auth Profile
+export const getNonAuthProfile = async (
+  profileId: string,
+): Promise<profileData> => {
+  const instanse = createAxiosInstance(null);
+  const res: ProfileResponse = await instanse.get(
+    `${PROFILESURL}/${profileId}`,
+  );
   return res.profile;
 };
 

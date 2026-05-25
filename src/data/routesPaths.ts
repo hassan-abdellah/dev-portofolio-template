@@ -4,8 +4,9 @@ export const authPaths = {
 };
 
 export const profilePaths = {
-  myProfile: "/profile/me",
-  editProfile: "/profile/:id/edit",
+  myProfile: "/protofolio/me",
+  editProfile: "/protofolio/:id/edit",
+  viewProfile: "/protofolio/:id",
 };
 
 // for links
