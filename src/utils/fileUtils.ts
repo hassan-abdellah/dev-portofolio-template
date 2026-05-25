@@ -16,6 +16,22 @@ export const generateFilePreview = (file: File): string => {
   return imagePreview;
 };
 
+// generate preview from URL based on extension
+export const generateFileURLPreview = (fileUrl: string): string => {
+  // if file has name put it else put the path comming from DB
+  const fileName = fileUrl;
+  // extract extension from fileName
+  const extension = fileName?.split(".")?.pop();
+  let imagePreview;
+  if (extension === "pdf") {
+    imagePreview = PDF;
+  } else {
+    imagePreview = fileName;
+  }
+
+  return imagePreview;
+};
+
 // export const revokeFilePreview = (previewUrl: string): void => {
 //   return URL.revokeObjectURL(previewUrl);
 // };

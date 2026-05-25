@@ -1,6 +1,7 @@
 import {
   formatBytes,
   generateFilePreview,
+  generateFileURLPreview,
   sliceFileName,
 } from "@/utils/fileUtils";
 import { Button } from "@/components/ui/button";
@@ -28,7 +29,11 @@ const DropzonePreview = ({
           <div className="flex items-center gap-3">
             {/* image preview */}
             <img
-              src={typeof file === "string" ? file : generateFilePreview(file)}
+              src={
+                typeof file === "string"
+                  ? generateFileURLPreview(file)
+                  : generateFilePreview(file)
+              }
               alt={file.name}
               className="w-12 h-12 rounded-md border border-input object-cover"
             />

@@ -11,6 +11,7 @@ import { usePlatformIcons } from "@/hooks/usePlatformIcons";
 import { useProfile } from "@/hooks/useProfiles";
 import ShareProfileModal from "@/components/profile/ShareProfileModal";
 import UploadProfileCVModal from "@/components/profile/UploadProfileCVModal";
+import ViewCVButton from "@/components/profile/ViewCVButton";
 
 const ProfilePage = () => {
   const { isSignedIn, userId } = useAuth();
@@ -82,7 +83,7 @@ const ProfilePage = () => {
 
             {/* CTA */}
             {isUserOwner ? (
-              <div className="mt-4 flex items-center justify-center gap-1.5">
+              <div className="mt-4 flex items-center justify-center gap-1.5 flex-wrap">
                 <Link
                   to={profilePaths.editProfile.replace(`:id`, `${data?.id}`)}
                   className="px-4 py-2 bg-indigo-velvet text-lavender-mist rounded-lg shadow-indigo-velvet hover:bg-wisteria transition-colors duration-300 flex items-center gap-1"
@@ -104,8 +105,16 @@ const ProfilePage = () => {
                   profileId={data?.id}
                   cvUrl={data?.csv_url ? data?.csv_url : null}
                 />
+
+                {/* View CV Button */}
+                {data?.csv_url && <ViewCVButton CVURL={data?.csv_url} />}
               </div>
-            ) : null}
+            ) : (
+              <>
+                {/* View CV Button */}
+                {data?.csv_url && <ViewCVButton CVURL={data?.csv_url} />}
+              </>
+            )}
           </div>
 
           {/* Projects Showcase */}
