@@ -5,7 +5,8 @@ import type {
   SingleProjectResponse,
 } from "@/types";
 import { type AxiosInstance } from "axios";
-import { MyPROJECTSURL, PROJECTSURL } from "./url_helper";
+import { MyPROJECTSURL, PROFILESURL, PROJECTSURL } from "./url_helper";
+import { createAxiosInstance } from "./axios";
 
 type projectType = {
   id?: string;
@@ -26,6 +27,23 @@ export const getMyProjects = async (
   params?: projectParamsDTO | undefined,
 ): Promise<{ projects: projectData[]; pagination?: paginationMeta }> => {
   const res: ProjectResponse = await api.get(MyPROJECTSURL, { params });
+  return {
+    projects: res.projects,
+    pagination: res.pagination,
+  };
+};
+// get non auth projects
+export const getNonAuthProjects = async (
+  profileId: string,
+  params?: projectParamsDTO | undefined,
+): Promise<{ projects: projectData[]; pagination?: paginationMeta }> => {
+  console.log("runnnnn");
+  const instanse = createAxiosInstance(null);
+
+  const res: ProjectResponse = await instanse.get(
+    `${PROFILESURL}/${profileId}/projects`,
+    { params },
+  );
   return {
     projects: res.projects,
     pagination: res.pagination,

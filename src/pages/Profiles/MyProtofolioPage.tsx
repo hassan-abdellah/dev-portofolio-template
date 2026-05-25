@@ -13,7 +13,7 @@ import ShareProfileModal from "@/components/profile/ShareProfileModal";
 import UploadProfileCVModal from "@/components/profile/UploadProfileCVModal";
 import ViewCVButton from "@/components/profile/ViewCVButton";
 
-const ProfilePage = () => {
+const MyProtofolioPage = () => {
   const { isSignedIn, userId } = useAuth();
 
   const { data, isLoading } = useProfile();
@@ -129,4 +129,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default MyProtofolioPage;
