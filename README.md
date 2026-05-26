@@ -28,6 +28,8 @@ _Share your Developer Protofolio With your recrutier or client_
 - Shadcn for headless UI components
 - Tailwind CSS for Styling
 - Framer Motion for animation
+- Zod For Form Validation
+- React Hook From for building Froms
 
 ##### Screens:
 
