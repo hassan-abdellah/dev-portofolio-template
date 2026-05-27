@@ -14,6 +14,7 @@ import { ExternalLink } from "lucide-react";
 import { useShareProfile } from "@/hooks/useProfiles";
 import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
 import useCopyToClipboard from "@/hooks/useCopyToClipboard";
+import { profilePaths } from "@/data/routesPaths";
 
 const ShareProfileModal = ({
   profileId,
@@ -41,7 +42,8 @@ const ShareProfileModal = ({
       );
       if (!isShared) {
         const baseLink = import.meta.env.VITE_REACT_APP_BASE_URL;
-        const shareableLink = `${baseLink}/profiles/${profileId}`;
+        const addonLink = profilePaths.viewProfile.replace(":id", profileId);
+        const shareableLink = `${baseLink}${addonLink}`;
         await copyToClipboard(shareableLink);
       }
     } catch (error) {
