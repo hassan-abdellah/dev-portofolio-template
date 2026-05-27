@@ -13,8 +13,8 @@ const DropzonePreview = ({
   onDeleteFile,
   isViewMode = false,
 }: {
-  files: File[] | undefined;
-  onDeleteFile: (file: File) => void;
+  files: (string | File)[] | undefined;
+  onDeleteFile: (file: File | string) => void;
   isViewMode?: boolean;
 }) => {
   console.log("files", files);
@@ -34,7 +34,7 @@ const DropzonePreview = ({
                   ? generateFileURLPreview(file)
                   : generateFilePreview(file)
               }
-              alt={file.name}
+              alt={typeof file === "string" ? file : file.name}
               className="w-12 h-12 rounded-md border border-input object-cover"
             />
 
