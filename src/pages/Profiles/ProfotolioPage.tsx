@@ -6,11 +6,13 @@ import { useNonAuthProfile } from "@/hooks/useProfiles";
 import ProfileHeaderSection from "@/components/profile/ProfileHeaderSection";
 import { useNavigate, useParams } from "react-router";
 import NonAuthProjectLists from "@/components/projects/NonAuthProjectLists";
+import { useDocTitle } from "@/hooks/useDocTitle";
 
 const ProfotolioPage = () => {
   const { id: profileId } = useParams();
   const navigate = useNavigate();
   const { data, isLoading, isError } = useNonAuthProfile(profileId!);
+  useDocTitle("View Portfolio");
 
   if (isError) {
     navigate("/404");
