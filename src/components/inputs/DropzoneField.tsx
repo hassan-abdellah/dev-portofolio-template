@@ -19,8 +19,8 @@ const DropzoneField = ({
 }: {
   id: string;
   label: string;
-  value: File[] | undefined;
-  onChange: (files: File[]) => void;
+  value: (string | File)[] | undefined;
+  onChange: (files: (File | string)[]) => void;
   error: string | undefined;
   invalid: boolean;
   fieldClassNames?: string;
@@ -36,7 +36,7 @@ const DropzoneField = ({
   });
 
   // handle delete file
-  const handleDeleteFile = (file: File) => {
+  const handleDeleteFile = (file: File | string) => {
     const newFiles = Array.from(files || []);
     const filteredFiles = newFiles.filter((f) => f !== file);
     onChange(filteredFiles);
