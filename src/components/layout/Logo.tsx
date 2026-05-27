@@ -1,15 +1,11 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router";
-
+import LogoIcon from "@/assets/images/logo.svg";
 const Logo = () => {
   return (
-    <div>
-      <Link to="/" className="flex items-center gap-0.5 sm:text-xl text-lg">
-        <ChevronLeft />
-        <span>Develeportfolio</span>
-        <ChevronRight />
-      </Link>
-    </div>
+    <Link to="/" className="flex items-center gap-1">
+      <img src={LogoIcon} alt="logo" className="w-6 h-6" />
+      <span className=" sm:text-xl text-lg">Develeportfolio</span>
+    </Link>
   );
 };
 

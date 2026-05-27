@@ -5,7 +5,7 @@ import Logo from "./Logo";
 
 const Navbar = () => {
   return (
-    <header className="sticky z-50 top-0 left-0 right-0 w-full bg-transparent h-(--nav-height) backdrop-blur-3xl flex items-center">
+    <header className="sticky z-50 top-0 left-0 right-0 w-full bg-lavender-mist h-(--nav-height) backdrop-blur-3xl flex items-center">
       <nav className="container flex items-center justify-between">
         {/* logo */}
         <Logo />
