@@ -1,33 +1,29 @@
 import EmptyProjectList from "./EmptyProjectList";
 import ProjectsGrid from "./ProjectsGrid";
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import ProjectsLoader from "./ProjectsLoader";
-import { useInView } from "react-intersection-observer";
-import { useProjects } from "@/hooks/useProjects";
 import { Spinner } from "../ui/spinner";
+import type { projectData } from "@/types";
 
 const ProjectsLists = ({
   profileId,
   profileOwnerId,
+  projects,
+  isLoading,
+  isFetchingNextPage,
+  hasNextPage,
+  sectionRef,
+  isInViewMode = false,
 }: {
   profileId: string | undefined;
   profileOwnerId: string | undefined;
+  projects: projectData[] | undefined;
+  isLoading: boolean;
+  isFetchingNextPage: boolean;
+  hasNextPage: boolean | undefined;
+  sectionRef: (node?: Element | null) => void;
+  isInViewMode?: boolean;
 }) => {
-  const { ref, inView } = useInView();
-  const {
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-    isLoading,
-    data: projects,
-  } = useProjects();
-
-  useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
-
   return (
     <div className="mt-8 pb-8">
       <h5 className="text-center text-2xl mb-4">Projects</h5>
@@ -42,10 +38,14 @@ const ProjectsLists = ({
                 projects={projects}
                 profileId={profileId}
                 profileOwnerId={profileOwnerId}
+                isInViewMode={isInViewMode}
               />
 
               {/* infite scrolling */}
-              <div ref={ref} className="flex items-center justify-center">
+              <div
+                ref={sectionRef}
+                className="flex items-center justify-center"
+              >
                 {isFetchingNextPage ? (
                   <Spinner className="size-10 stroke-lavender-purple" />
                 ) : hasNextPage ? (
@@ -61,6 +61,7 @@ const ProjectsLists = ({
             <EmptyProjectList
               profileId={profileId}
               profileOwnerId={profileOwnerId}
+              isInViewMode={isInViewMode}
             />
           )}
         </Fragment>

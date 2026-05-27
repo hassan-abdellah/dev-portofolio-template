@@ -9,16 +9,18 @@ const ProjectsGrid = ({
   projects,
   profileOwnerId,
   profileId,
+  isInViewMode = false,
 }: {
   projects: projectData[] | undefined;
   profileOwnerId: string | undefined;
   profileId: string | undefined;
+  isInViewMode?: boolean;
 }) => {
   const { userId } = useAuth();
 
   const isUserOwner: boolean = useMemo(() => {
-    return userId === profileOwnerId ? true : false;
-  }, [userId, profileOwnerId]);
+    return userId === profileOwnerId && !isInViewMode ? true : false;
+  }, [userId, profileOwnerId, isInViewMode]);
 
   return (
     <div className="mt-4 container">

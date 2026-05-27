@@ -9,7 +9,7 @@ const Navbar = () => {
       <nav className="container flex items-center justify-between">
         {/* logo */}
         <div>
-          <Link to="/" className="flex items-center gap-0.5 text-xl">
+          <Link to="/" className="flex items-center gap-0.5 sm:text-xl text-lg">
             <ChevronLeft />
             <span>Dev Portofolio</span>
             <ChevronRight />
@@ -37,7 +37,7 @@ const Navbar = () => {
               </li>
             ))}
 
-            <li>
+            <li className="mt-1">
               <UserButton signInUrl={authPaths.logIn} />
             </li>
           </Show>

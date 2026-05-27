@@ -1,9 +1,9 @@
 import { useInView } from "react-intersection-observer";
-import { useNonAuthProjects } from "@/hooks/useProjects";
+import { useProjects } from "@/hooks/useProjects";
 import ProjectsLists from "./ProjectsLists";
 import { useEffect } from "react";
 
-const NonAuthProjectLists = ({
+const ProfileProjectsList = ({
   profileId,
   profileOwnerId,
 }: {
@@ -17,7 +17,7 @@ const NonAuthProjectLists = ({
     hasNextPage,
     isLoading,
     data: projects,
-  } = useNonAuthProjects(profileId!);
+  } = useProjects();
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -34,9 +34,8 @@ const NonAuthProjectLists = ({
       isFetchingNextPage={isFetchingNextPage}
       hasNextPage={hasNextPage}
       sectionRef={ref}
-      isInViewMode={true}
     />
   );
 };
 
-export default NonAuthProjectLists;
+export default ProfileProjectsList;

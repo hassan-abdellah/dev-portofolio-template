@@ -13,15 +13,17 @@ import { useMemo } from "react";
 const EmptyProjectList = ({
   profileId,
   profileOwnerId,
+  isInViewMode = false,
 }: {
   profileId: string | undefined;
   profileOwnerId: string | undefined;
+  isInViewMode?: boolean;
 }) => {
   const { userId } = useAuth();
 
   const isUserOwner: boolean = useMemo(() => {
-    return userId === profileOwnerId ? true : false;
-  }, [userId, profileOwnerId]);
+    return userId === profileOwnerId && !isInViewMode ? true : false;
+  }, [userId, profileOwnerId, isInViewMode]);
 
   return (
     <Empty className="border border-dashed border-dark-amethyst max-w-md mx-auto card-width">

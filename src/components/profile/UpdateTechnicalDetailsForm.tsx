@@ -11,7 +11,7 @@ import { technicalDetailsSchema } from "@/formSchemas/techincalDetailsFormSchema
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Spinner } from "../../ui/spinner";
+import { Spinner } from "../ui/spinner";
 import TechnicalFormInputs from "./TechnicalFormInputs";
 import UpdateProfileLoader from "@/components/profile/UpdateProfileLoader";
 import { useEffect, useMemo } from "react";
