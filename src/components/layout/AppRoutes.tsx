@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router";
 import MyProtofolioPage from "@/pages/Profiles/MyProtofolioPage";
-import AddTechnicalPage from "@/pages/AddTechnicalPage";
-import EditTechnicalDetailsPage from "@/pages/EditTechnicalDetailsPage";
+import AddTechnicalPage from "@/pages/Profiles/AddTechnicalPage";
+import EditTechnicalDetailsPage from "@/pages/Profiles/EditTechnicalDetailsPage";
 import RegisterPage from "@/pages/authentication/RegisterPage";
 import LoginPage from "@/pages/authentication/LoginPage";
 import { authPaths, profilePaths } from "@/data/routesPaths";

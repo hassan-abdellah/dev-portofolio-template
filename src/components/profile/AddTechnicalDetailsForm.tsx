@@ -11,12 +11,12 @@ import { technicalDetailsSchema } from "@/formSchemas/techincalDetailsFormSchema
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Spinner } from "../../ui/spinner";
-import TechnicalFormInputs from "./TechnicalFormInputs";
+import { Spinner } from "../ui/spinner";
 import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
 import { profilePaths } from "@/data/routesPaths";
 import { useNavigate } from "react-router";
 import { useCreateProfile } from "@/hooks/useProfiles";
+import TechnicalFormInputs from "./TechnicalFormInputs";
 
 const AddTechnicalDetailsForm = () => {
   const navigate = useNavigate();

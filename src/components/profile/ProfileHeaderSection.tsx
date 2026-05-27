@@ -11,18 +11,26 @@ import AvatarPlaceholder from "@/assets/images/avatar-placeholder.svg";
 import { PencilIcon } from "lucide-react";
 import { Link } from "react-router";
 
-const ProfileHeaderSection = ({ data }: { data: profileData | undefined }) => {
+const ProfileHeaderSection = ({
+  data,
+  isInViewMode = false,
+}: {
+  data: profileData | undefined;
+  isInViewMode?: boolean;
+}) => {
   const { isSignedIn, userId } = useAuth();
 
   const { PLATFORM_Icons } = usePlatformIcons();
 
   // check it the user who views the profile is the owener or not
   const isUserOwner = useMemo(() => {
-    return isSignedIn && userId === data?.user?.clerkId ? true : false;
-  }, [isSignedIn, userId, data?.user?.clerkId]);
+    return isSignedIn && userId === data?.user?.clerkId && !isInViewMode
+      ? true
+      : false;
+  }, [isSignedIn, userId, data?.user?.clerkId, isInViewMode]);
 
   return (
-    <div className="flex flex-col items-center justify-center bg-lavender-purple h-100 w-full rounded-b-4xl">
+    <div className="flex flex-col items-center justify-center bg-lavender-purple h-120 w-full rounded-b-4xl">
       {/* image */}
       <div className="w-18 h-18 rounded-full bg-lavender-mist border-2 border-indigo-velvet">
         <img
@@ -39,7 +47,7 @@ const ProfileHeaderSection = ({ data }: { data: profileData | undefined }) => {
 
       {/* Skills */}
       {data?.skills?.length ? (
-        <div className="mt-4 flex items-center justify-center gap-1.5 flex-wrap max-w-2xl">
+        <div className="mt-6 flex items-center justify-center gap-1.5 flex-wrap max-w-2xl">
           {data?.skills.map((item) => (
             <span
               key={item}
@@ -54,7 +62,7 @@ const ProfileHeaderSection = ({ data }: { data: profileData | undefined }) => {
       {/* social links */}
 
       {data?.links.length ? (
-        <div className="mt-4 flex items-center justify-center gap-2.5 flex-wrap">
+        <div className="mt-6 flex items-center justify-center gap-2.5 flex-wrap">
           {data?.links.map((link) => (
             <a
               href={link.link_url}
@@ -70,39 +78,41 @@ const ProfileHeaderSection = ({ data }: { data: profileData | undefined }) => {
       ) : null}
 
       {/* CTA */}
-      {isUserOwner ? (
-        <div className="mt-4 flex items-center justify-center gap-1.5 flex-wrap">
-          <Link
-            to={profilePaths.editProfile.replace(`:id`, `${data?.id}`)}
-            className="px-4 py-2 bg-indigo-velvet text-lavender-mist rounded-lg shadow-indigo-velvet hover:bg-wisteria transition-colors duration-300 flex items-center gap-1"
-            aria-label="Edit Portofolio"
-          >
-            <PencilIcon className="size-4" />
-            <span>Edit</span>
-          </Link>
-          {/* Share profile button */}
+      <div className="mt-6 flex items-center justify-center gap-1.5 flex-wrap">
+        {isUserOwner ? (
+          <>
+            <Link
+              to={profilePaths.editProfile.replace(`:id`, `${data?.id}`)}
+              className="px-4 py-2 bg-indigo-velvet text-lavender-mist rounded-lg shadow-indigo-velvet hover:bg-wisteria transition-colors duration-300 flex items-center gap-1"
+              aria-label="Edit Portofolio"
+            >
+              <PencilIcon className="size-4" />
+              <span>Edit</span>
+            </Link>
+            {/* Share profile button */}
 
-          <ShareProfileModal
-            profileId={data?.id}
-            isShared={data?.is_sharable}
-          />
+            <ShareProfileModal
+              profileId={data?.id}
+              isShared={data?.is_sharable}
+            />
 
-          {/* Upload CV Button */}
+            {/* Upload CV Button */}
 
-          <UploadProfileCVModal
-            profileId={data?.id}
-            cvUrl={data?.csv_url ? data?.csv_url : null}
-          />
+            <UploadProfileCVModal
+              profileId={data?.id}
+              cvUrl={data?.csv_url ? data?.csv_url : null}
+            />
 
-          {/* View CV Button */}
-          {data?.csv_url && <ViewCVButton CVURL={data?.csv_url} />}
-        </div>
-      ) : (
-        <div className="mt-4 flex items-center justify-center gap-1.5 flex-wrap">
-          {/* View CV Button */}
-          {data?.csv_url && <ViewCVButton CVURL={data?.csv_url} />}
-        </div>
-      )}
+            {/* View CV Button */}
+            {data?.csv_url && <ViewCVButton CVURL={data?.csv_url} />}
+          </>
+        ) : (
+          <>
+            {/* View CV Button */}
+            {data?.csv_url && <ViewCVButton CVURL={data?.csv_url} />}
+          </>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import UpdateTechnicalDetailsForm from "@/components/forms/TechnicalDetails/UpdateTechnicalDetailsForm";
+import UpdateTechnicalDetailsForm from "@/components/profile/UpdateTechnicalDetailsForm";
 
 const EditTechnicalDetailsPage = () => {
   return (

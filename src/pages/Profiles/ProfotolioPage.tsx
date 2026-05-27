@@ -22,7 +22,7 @@ const ProfotolioPage = () => {
       ) : (
         <section className="relative">
           {/* header */}
-          <ProfileHeaderSection data={data} />
+          <ProfileHeaderSection data={data} isInViewMode={true} />
 
           {/* Projects Showcase */}
 
