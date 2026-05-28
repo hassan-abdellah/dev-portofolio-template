@@ -4,11 +4,11 @@ import { useProfile } from "@/hooks/useProfiles";
 import ProfileHeaderSection from "@/components/profile/ProfileHeaderSection";
 import ProfileProjectsList from "@/components/projects/ProfileProjectsList";
 import { useDocTitle } from "@/hooks/useDocTitle";
+import EmptyProfileSection from "@/components/profile/EmptyProfileSection";
 
 const MyProtofolioPage = () => {
   const { data, isLoading } = useProfile();
   useDocTitle("My Portfolio");
-
   return (
     <Fragment>
       {isLoading ? (
@@ -16,7 +16,11 @@ const MyProtofolioPage = () => {
       ) : (
         <section className="relative">
           {/* header */}
-          <ProfileHeaderSection data={data} />
+          {data ? (
+            <ProfileHeaderSection data={data} />
+          ) : (
+            <EmptyProfileSection />
+          )}
 
           {/* Projects Showcase */}
 

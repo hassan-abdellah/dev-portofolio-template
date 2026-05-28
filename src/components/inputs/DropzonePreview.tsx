@@ -5,8 +5,9 @@ import {
   sliceFileName,
 } from "@/utils/fileUtils";
 import { Button } from "@/components/ui/button";
-import { Delete } from "../icons/Delete";
 import PreviewSVG from "../icons/PreviewSVG";
+import { DeleteIcon } from "../icons/DeleteIcon";
+import { useAnimation } from "motion/react";
 
 const DropzonePreview = ({
   files,
@@ -17,7 +18,9 @@ const DropzonePreview = ({
   onDeleteFile: (file: File | string) => void;
   isViewMode?: boolean;
 }) => {
-  console.log("files", files);
+  const controls = useAnimation();
+  const controls2 = useAnimation();
+
   return (
     <div className="space-y-1.5 mt-4">
       {Array.from(files || []).map((file, index) => (
@@ -42,7 +45,13 @@ const DropzonePreview = ({
             <div className="space-y-1">
               {/* file name */}
               <p className="text-sm text-muted-foreground">
-                {sliceFileName(typeof file === "string" ? file : file.name)}
+                {sliceFileName(
+                  typeof file === "string"
+                    ? file
+                      ? file.split("/").pop() || file
+                      : file
+                    : file.name,
+                )}
               </p>
               {/* file size */}
               {typeof file === "string" ? null : (
@@ -62,9 +71,10 @@ const DropzonePreview = ({
               rel="noopener noreferrer"
               aria-label="Preview File"
               className="p-2 text-dark-amethyst hover:bg-dark-amethyst hover:text-lavender-mist focus-visible:bg-dark-amethyst focus-visible:text-lavender-mist transition-colors duration-300 rounded-full"
+              onMouseEnter={() => controls.start("animate")}
+              onMouseLeave={() => controls.start("normal")}
             >
-              {/* <EyeIcon className="w-4 h-4" /> */}
-              <PreviewSVG className="w-4 h-4" />
+              <PreviewSVG width={16} height={16} controls={controls} />
             </a>
             {/* remove file button */}
             {!isViewMode ? (
@@ -74,12 +84,10 @@ const DropzonePreview = ({
                 aria-label="Remove File"
                 onClick={() => onDeleteFile(file)}
                 className="rounded-full p-2 text-destructive hover:text-red-600 focus-visible:bg-muted focus-visible:text-destructive focus-visible:outline-0 focus-visible:ring-0 focus-visible:border-0 transition-colors duration-300 cursor-pointer"
+                onMouseEnter={() => controls2.start("animate")}
+                onMouseLeave={() => controls2.start("normal")}
               >
-                <Delete
-                  className="w-4 h-4 stroke-destructive"
-                  width={16}
-                  height={16}
-                />
+                <DeleteIcon width={16} height={16} controls={controls2} />
               </Button>
             ) : null}
           </div>

@@ -4,6 +4,7 @@ import FormErrorMessage from "./FormErrorMessage";
 import clsx from "clsx";
 import { FileStack } from "../icons/FileStack";
 import DropzonePreview from "./DropzonePreview";
+import { useAnimation } from "motion/react";
 
 const DropzoneField = ({
   id,
@@ -28,6 +29,8 @@ const DropzoneField = ({
   multiple?: boolean;
   disabled?: boolean;
 }) => {
+  const controls = useAnimation();
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: (accepted) => onChange(accepted),
     maxFiles: maxFiles ? maxFiles : undefined,
@@ -57,11 +60,16 @@ const DropzoneField = ({
             "bg-gray-100 pointer-events-none": disabled,
           },
         )}
+        onMouseEnter={() => controls.start("animate")}
+        onMouseLeave={() => controls.start("normal")}
       >
         <input {...getInputProps()} />
 
         <div className="space-y-1">
-          <FileStack className="stroke-dark-amethyst" />
+          <FileStack
+            className="stroke-dark-amethyst mx-auto"
+            controls={controls}
+          />
           {isDragActive ? (
             <p>Drop the file here...</p>
           ) : (

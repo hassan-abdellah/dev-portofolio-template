@@ -10,7 +10,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 
-import { FileUser } from "lucide-react";
 import { useUploadProfileCV } from "@/hooks/useProfiles";
 import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
 import { profileCVSchema } from "@/formSchemas/techincalDetailsFormSchema";
@@ -18,6 +17,8 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import DropzoneField from "../inputs/DropzoneField";
+import { useAnimation } from "motion/react";
+import CloudUploadIcon from "../icons/CloudUploadIcon";
 
 const UploadProfileCVModal = ({
   profileId,
@@ -26,8 +27,8 @@ const UploadProfileCVModal = ({
   profileId: string | undefined;
   cvUrl?: string | null;
 }) => {
+  const controls = useAnimation();
   const [isOpen, setIsOpen] = useState(false);
-
   const uploadCV = useUploadProfileCV();
 
   const defualtValues = useMemo(() => {
@@ -75,8 +76,10 @@ const UploadProfileCVModal = ({
         className="cursor-pointer px-4 py-5 bg-gray-300 text-dark-amethyst rounded-lg shadow-indigo-velvet hover:bg-gray-500 hover:text-lavender-mist transition-colors duration-300 flex items-center gap-1"
         onClick={() => setIsOpen(true)}
         aria-label="Upload CV"
+        onMouseEnter={() => controls.start("animate")}
+        onMouseLeave={() => controls.start("normal")}
       >
-        <FileUser className="size-4" />
+        <CloudUploadIcon controls={controls} />
         <span>Upload CV</span>
       </Button>
 

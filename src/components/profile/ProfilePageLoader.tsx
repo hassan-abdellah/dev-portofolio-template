@@ -30,7 +30,7 @@ const ProfilePageLoader = () => {
 
         {/* CTAs */}
         <div className="mt-6 flex items-center gap-1.5 flex-wrap justify-center">
-          {Array.from({ length: 4 }).map((_, i) => (
+          {Array.from({ length: 5 }).map((_, i) => (
             <Skeleton key={i} className="w-30 h-10" />
           ))}
         </div>
