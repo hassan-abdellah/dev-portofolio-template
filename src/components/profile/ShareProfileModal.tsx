@@ -10,11 +10,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 
-import { ExternalLink } from "lucide-react";
 import { useShareProfile } from "@/hooks/useProfiles";
 import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
 import useCopyToClipboard from "@/hooks/useCopyToClipboard";
 import { profilePaths } from "@/data/routesPaths";
+import ShareLinkIcon from "../icons/ShareLinkIcon";
+import { useAnimation } from "motion/react";
 
 const ShareProfileModal = ({
   profileId,
@@ -23,6 +24,7 @@ const ShareProfileModal = ({
   profileId: string | undefined;
   isShared?: boolean;
 }) => {
+  const controls = useAnimation();
   const [isOpen, setIsOpen] = useState(false);
   const shareProfile = useShareProfile();
   const isLoading = shareProfile.status === "pending" ? true : false;
@@ -66,8 +68,10 @@ const ShareProfileModal = ({
         className="cursor-pointer px-4 py-5 bg-midnight-violet text-lavender-mist rounded-lg shadow-indigo-velvet hover:bg-dark-amethyst transition-colors duration-300 flex items-center gap-1"
         aria-label={isShared ? "Unshare Profile" : "Share Profile"}
         onClick={() => setIsOpen(true)}
+        onMouseEnter={() => controls.start("animate")}
+        onMouseLeave={() => controls.start("normal")}
       >
-        <ExternalLink className="size-4" />
+        <ShareLinkIcon controls={controls} />
         <span>{isShared ? "Unshare" : "Share"}</span>
       </Button>
 
