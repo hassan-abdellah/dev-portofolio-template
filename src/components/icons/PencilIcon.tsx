@@ -4,11 +4,11 @@ import { motion, useAnimation } from "motion/react";
 
 const defaultTransition: Transition = {
   type: "spring",
-  stiffness: 250,
-  damping: 25,
+  stiffness: 500,
+  damping: 30,
 };
 
-const ShareLinkIcon = ({
+const PencilIcon = ({
   width = 28,
   height = 28,
   strokeWidth = 2,
@@ -18,7 +18,6 @@ const ShareLinkIcon = ({
 }: AnimatedIconProps) => {
   const internalControls = useAnimation();
   const controls = externalControls ?? internalControls;
-
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -34,18 +33,28 @@ const ShareLinkIcon = ({
     >
       <motion.path
         variants={{
-          normal: { translateX: "0px", translateY: "0px" },
-          animate: { translateX: "2px", translateY: "-2px" },
+          normal: { translateX: "0px" },
+          animate: { translateX: "-2px" },
         }}
         transition={defaultTransition}
         animate={controls}
         initial="normal"
-        d="M15 3h6v6"
+        d="M13 21h8"
       />
-      <path d="M10 14 21 3" />
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <motion.g
+        variants={{
+          normal: { translateY: "0px", translateX: "0px" },
+          animate: { translateY: "-1px", translateX: "-1px" },
+        }}
+        transition={defaultTransition}
+        animate={controls}
+        initial="normal"
+      >
+        <path d="m15 5 4 4" />
+        <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+      </motion.g>
     </svg>
   );
 };
 
-export default ShareLinkIcon;
+export default PencilIcon;

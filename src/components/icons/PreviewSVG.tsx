@@ -1,13 +1,6 @@
-import React from "react";
 import type { Transition, Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
-
-interface PreviewIconProps extends React.SVGAttributes<SVGSVGElement> {
-  width?: number;
-  height?: number;
-  strokeWidth?: number;
-  controls?: ReturnType<typeof useAnimation>;
-}
+import type { AnimatedIconProps } from "@/types";
 
 const transitions: Transition = {
   type: "spring",
@@ -38,10 +31,11 @@ const PreviewSVG = ({
   width = 28,
   height = 28,
   strokeWidth = 2,
+  stroke = "currentColor",
   controls: externalControls,
 
   ...props
-}: PreviewIconProps) => {
+}: AnimatedIconProps) => {
   const internalControls = useAnimation();
   const controls = externalControls ?? internalControls;
   return (
@@ -51,7 +45,7 @@ const PreviewSVG = ({
       height={height}
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
+      stroke={stroke}
       strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"

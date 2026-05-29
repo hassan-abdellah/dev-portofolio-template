@@ -1,14 +1,7 @@
+import type { AnimatedIconProps } from "@/types";
 import type { Transition } from "motion/react";
 import { motion, useAnimation } from "motion/react";
 
-interface CloudUploadIconProps extends React.SVGAttributes<SVGSVGElement> {
-  width?: number;
-  height?: number;
-  strokeWidth?: number;
-  stroke?: string;
-  /** Pass controls from the parent to drive the animation externally */
-  controls?: ReturnType<typeof useAnimation>;
-}
 const defaultTransition: Transition = {
   type: "spring",
   stiffness: 250,
@@ -18,10 +11,10 @@ const CloudUploadIcon = ({
   width = 28,
   height = 28,
   strokeWidth = 2,
-  stroke = "#ffffff",
+  stroke = "currentColor",
   controls: externalControls,
   ...props
-}: CloudUploadIconProps) => {
+}: AnimatedIconProps) => {
   const internalControls = useAnimation();
   const controls = externalControls ?? internalControls;
   return (
@@ -31,7 +24,7 @@ const CloudUploadIcon = ({
       height={height}
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
+      stroke={stroke}
       strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"

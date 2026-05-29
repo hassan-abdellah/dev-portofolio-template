@@ -6,12 +6,13 @@ import UpdateProjectModal from "./UpdateProjectModal";
 import DeleteModal from "../common/DeleteModal";
 import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
 import LoadingModal from "../common/LoadingModal";
-import { TrashIcon } from "lucide-react";
 import ViewProjectModal from "./ViewProjectModal";
 import PreviewProjectButton from "./PreviewProjectButton";
 import { useDeleteProject } from "@/hooks/useProjects";
+import { DeleteIcon } from "../icons/DeleteIcon";
+import { useAnimation } from "motion/react";
 
-const SingleProject = ({
+const ProjectCard = ({
   profileId,
   project,
   isUserOwner,
@@ -23,7 +24,7 @@ const SingleProject = ({
   const [isDeleting, setIsDeleting] = useState(false);
 
   const deleteProject = useDeleteProject();
-
+  const controls = useAnimation();
   // Delete Project From DB
   async function handleDeleteProject(projectId: string | undefined) {
     if (!projectId) {
@@ -56,6 +57,7 @@ const SingleProject = ({
         <div className="flex flex-col flex-1 gap-2 px-2">
           <h2 className="text-dark-amethyst">{project.title}</h2>
           <p className="text-gray-400 flex-1">{project.description}</p>
+          {/* Action Buttons */}
           {isUserOwner ? (
             <div className="flex items-center gap-1.5">
               {project.preview_url ? (
@@ -81,8 +83,10 @@ const SingleProject = ({
                     className="rounded-icon-button bg-destructive hover:bg-red-500"
                     aria-label="Delete Project"
                     onClick={() => setOpen(true)}
+                    onMouseEnter={() => controls.start("animate")}
+                    onMouseLeave={() => controls.start("normal")}
                   >
-                    <TrashIcon />
+                    <DeleteIcon controls={controls} />
                   </Button>
                 )}
               />
@@ -102,4 +106,4 @@ const SingleProject = ({
   );
 };
 
-export default SingleProject;
+export default ProjectCard;

@@ -18,8 +18,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import ProjectFormInputs from "./ProjectFormInputs";
 import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
 import UpdateProjectLoader from "./UpdateProjectLoader";
-import { PencilIcon } from "lucide-react";
 import { useProject, useUpdateProject } from "@/hooks/useProjects";
+import PencilIcon from "../icons/PencilIcon";
+import { useAnimation } from "motion/react";
 
 const UpdateProjectModal = ({
   profileId,
@@ -29,6 +30,7 @@ const UpdateProjectModal = ({
   projectId: string | undefined;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const controls = useAnimation();
 
   const updateProject = useUpdateProject();
 
@@ -83,8 +85,10 @@ const UpdateProjectModal = ({
         className="rounded-icon-button bg-dark-amethyst hover:bg-midnight-violet"
         onClick={() => setIsOpen(true)}
         aria-label="Edit Project"
+        onMouseEnter={() => controls.start("animate")}
+        onMouseLeave={() => controls.start("normal")}
       >
-        <PencilIcon />
+        <PencilIcon controls={controls} />
       </Button>
       {isOpen && (
         <Dialog open={isOpen} onOpenChange={setIsOpen} modal={true}>

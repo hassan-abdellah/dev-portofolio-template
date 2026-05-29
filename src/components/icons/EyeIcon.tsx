@@ -4,11 +4,11 @@ import { motion, useAnimation } from "motion/react";
 
 const defaultTransition: Transition = {
   type: "spring",
-  stiffness: 250,
-  damping: 25,
+  stiffness: 500,
+  damping: 30,
 };
 
-const ShareLinkIcon = ({
+const EyeIcon = ({
   width = 28,
   height = 28,
   strokeWidth = 2,
@@ -18,7 +18,6 @@ const ShareLinkIcon = ({
 }: AnimatedIconProps) => {
   const internalControls = useAnimation();
   const controls = externalControls ?? internalControls;
-
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -34,18 +33,29 @@ const ShareLinkIcon = ({
     >
       <motion.path
         variants={{
-          normal: { translateX: "0px", translateY: "0px" },
-          animate: { translateX: "2px", translateY: "-2px" },
+          normal: { pathLength: 1 },
+          animate: { pathLength: 0.5 },
         }}
         transition={defaultTransition}
         animate={controls}
         initial="normal"
-        d="M15 3h6v6"
+        d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
       />
-      <path d="M10 14 21 3" />
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+
+      <motion.circle
+        variants={{
+          normal: { rotateX: "0%" },
+          animate: { rotateX: "180deg" },
+        }}
+        transition={defaultTransition}
+        animate={controls}
+        initial="normal"
+        cx={12}
+        cy={12}
+        r={3}
+      />
     </svg>
   );
 };
 
-export default ShareLinkIcon;
+export default EyeIcon;

@@ -1,12 +1,6 @@
+import type { AnimatedIconProps } from "@/types";
 import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
-
-interface FoldersProps extends React.SVGAttributes<SVGSVGElement> {
-  width?: number;
-  height?: number;
-  strokeWidth?: number;
-  stroke?: string;
-}
 
 const folderVariants: Variants = {
   normal: {
@@ -57,9 +51,9 @@ const Folders = ({
   width = 28,
   height = 28,
   strokeWidth = 2,
-  stroke = "#ffffff",
+  stroke = "currentColor",
   ...props
-}: FoldersProps) => {
+}: AnimatedIconProps) => {
   const controls = useAnimation();
 
   return (

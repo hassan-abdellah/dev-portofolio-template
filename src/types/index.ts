@@ -1,10 +1,20 @@
+import type { useAnimation } from "motion/react";
+import type React from "react";
+
 export interface skillType {
   name: string;
   display_name: string;
 }
 
+export type platformType =
+  | "youtube"
+  | "github"
+  | "linkedin"
+  | "others"
+  | (string & {});
+
 export interface platformLink {
-  link_type: "youtube" | "github" | "linkedin" | "others" | (string & {});
+  link_type: platformType;
   link_url: string;
 }
 
@@ -56,4 +66,13 @@ export interface profileData {
 export interface ProfileResponse {
   status: boolean;
   profile: profileData;
+}
+
+export interface AnimatedIconProps extends React.SVGAttributes<SVGSVGElement> {
+  width?: number;
+  height?: number;
+  strokeWidth?: number;
+  stroke?: string;
+  /** Pass controls from the parent to drive the animation externally */
+  controls?: ReturnType<typeof useAnimation>;
 }
