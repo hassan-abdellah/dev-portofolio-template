@@ -1,7 +1,6 @@
 import type { projectData } from "@/types";
 import ProjectPlacholder from "@/assets/images/project-placeholder.svg";
 import { Fragment, useState } from "react";
-import { Button } from "../ui/button";
 import UpdateProjectModal from "./UpdateProjectModal";
 import DeleteModal from "../common/DeleteModal";
 import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
@@ -10,7 +9,7 @@ import ViewProjectModal from "./ViewProjectModal";
 import PreviewProjectButton from "./PreviewProjectButton";
 import { useDeleteProject } from "@/hooks/useProjects";
 import { DeleteIcon } from "../icons/DeleteIcon";
-import { useAnimation } from "motion/react";
+import AnimatedIconButton from "../common/AnimatedIconButton";
 
 const ProjectCard = ({
   profileId,
@@ -24,7 +23,6 @@ const ProjectCard = ({
   const [isDeleting, setIsDeleting] = useState(false);
 
   const deleteProject = useDeleteProject();
-  const controls = useAnimation();
   // Delete Project From DB
   async function handleDeleteProject(projectId: string | undefined) {
     if (!projectId) {
@@ -77,17 +75,14 @@ const ProjectCard = ({
                 modalTitle="DELETE CONFIRMATION"
                 modalDescription="Are you sure you want to Delete This Project ? this action can’t be undone"
                 onDelete={() => handleDeleteProject(project.id)}
-                trigger={(setOpen) => (
-                  <Button
+                trigger={(setIsOpen) => (
+                  <AnimatedIconButton
                     type="button"
+                    IconComponent={DeleteIcon}
                     className="rounded-icon-button bg-destructive hover:bg-red-500"
                     aria-label="Delete Project"
-                    onClick={() => setOpen(true)}
-                    onMouseEnter={() => controls.start("animate")}
-                    onMouseLeave={() => controls.start("normal")}
-                  >
-                    <DeleteIcon controls={controls} />
-                  </Button>
+                    onClick={() => setIsOpen(true)}
+                  />
                 )}
               />
             </div>

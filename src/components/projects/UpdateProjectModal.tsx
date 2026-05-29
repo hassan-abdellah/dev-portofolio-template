@@ -20,7 +20,7 @@ import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
 import UpdateProjectLoader from "./UpdateProjectLoader";
 import { useProject, useUpdateProject } from "@/hooks/useProjects";
 import PencilIcon from "../icons/PencilIcon";
-import { useAnimation } from "motion/react";
+import AnimatedIconButton from "../common/AnimatedIconButton";
 
 const UpdateProjectModal = ({
   profileId,
@@ -30,7 +30,6 @@ const UpdateProjectModal = ({
   projectId: string | undefined;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const controls = useAnimation();
 
   const updateProject = useUpdateProject();
 
@@ -81,15 +80,15 @@ const UpdateProjectModal = ({
   return (
     <>
       {/* Dialog trigger */}
-      <Button
+
+      <AnimatedIconButton
+        type="button"
+        IconComponent={PencilIcon}
         className="rounded-icon-button bg-dark-amethyst hover:bg-midnight-violet"
-        onClick={() => setIsOpen(true)}
         aria-label="Edit Project"
-        onMouseEnter={() => controls.start("animate")}
-        onMouseLeave={() => controls.start("normal")}
-      >
-        <PencilIcon controls={controls} />
-      </Button>
+        onClick={() => setIsOpen(true)}
+      />
+
       {isOpen && (
         <Dialog open={isOpen} onOpenChange={setIsOpen} modal={true}>
           {isLoading ? (

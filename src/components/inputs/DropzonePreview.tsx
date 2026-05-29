@@ -4,10 +4,10 @@ import {
   generateFileURLPreview,
   sliceFileName,
 } from "@/utils/fileUtils";
-import { Button } from "@/components/ui/button";
 import PreviewSVG from "../icons/PreviewSVG";
 import { DeleteIcon } from "../icons/DeleteIcon";
-import { useAnimation } from "motion/react";
+import AnimatedIconButton from "../common/AnimatedIconButton";
+import AnimatedIconLink from "../common/AnimatedIconLink";
 
 const DropzonePreview = ({
   files,
@@ -18,9 +18,6 @@ const DropzonePreview = ({
   onDeleteFile: (file: File | string) => void;
   isViewMode?: boolean;
 }) => {
-  const controls = useAnimation();
-  const controls2 = useAnimation();
-
   return (
     <div className="space-y-1.5 mt-4">
       {Array.from(files || []).map((file, index) => (
@@ -65,30 +62,26 @@ const DropzonePreview = ({
           {/* Right Section */}
           {/* files actions */}
           <div className="flex items-center gap-1">
-            <a
-              href={typeof file === "string" ? file : URL.createObjectURL(file)}
+            <AnimatedIconLink
+              IconComponent={PreviewSVG}
               target="_blank"
+              href={typeof file === "string" ? file : URL.createObjectURL(file)}
               rel="noopener noreferrer"
               aria-label="Preview File"
               className="p-2 text-dark-amethyst hover:bg-dark-amethyst hover:text-lavender-mist focus-visible:bg-dark-amethyst focus-visible:text-lavender-mist transition-colors duration-300 rounded-full"
-              onMouseEnter={() => controls.start("animate")}
-              onMouseLeave={() => controls.start("normal")}
-            >
-              <PreviewSVG width={16} height={16} controls={controls} />
-            </a>
+              iconwidth={16}
+              iconheight={16}
+            />
             {/* remove file button */}
             {!isViewMode ? (
-              <Button
+              <AnimatedIconButton
                 type="button"
                 variant="ghost"
+                IconComponent={DeleteIcon}
+                className="rounded-full p-2 text-destructive hover:text-red-600 focus-visible:bg-muted focus-visible:text-destructive focus-visible:outline-0 focus-visible:ring-0 focus-visible:border-0 transition-colors duration-300 cursor-pointer"
                 aria-label="Remove File"
                 onClick={() => onDeleteFile(file)}
-                className="rounded-full p-2 text-destructive hover:text-red-600 focus-visible:bg-muted focus-visible:text-destructive focus-visible:outline-0 focus-visible:ring-0 focus-visible:border-0 transition-colors duration-300 cursor-pointer"
-                onMouseEnter={() => controls2.start("animate")}
-                onMouseLeave={() => controls2.start("normal")}
-              >
-                <DeleteIcon width={16} height={16} controls={controls2} />
-              </Button>
+              />
             ) : null}
           </div>
         </div>
