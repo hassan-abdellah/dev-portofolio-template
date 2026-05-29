@@ -65,7 +65,7 @@ const ShareProfileModal = ({
       <AnimatedIconButton
         IconComponent={ShareLinkIcon}
         type="button"
-        className="cursor-pointer px-4 py-5 bg-midnight-violet text-lavender-mist rounded-lg shadow-indigo-velvet hover:bg-dark-amethyst transition-colors duration-300 flex items-center gap-1"
+        className="cta-button bg-midnight-violet text-lavender-mist hover:bg-dark-amethyst"
         buttonText={isShared ? "Unshare" : "Share"}
         aria-label={isShared ? "Unshare Profile" : "Share Profile"}
         onClick={() => setIsOpen(true)}
@@ -82,13 +82,22 @@ const ShareProfileModal = ({
               <DialogTitle>Share Portofolio</DialogTitle>
             </DialogHeader>
             {/* Dialog Content */}
-            <p className="px-4 leading-6">
-              Be Cautious Anyone who has access to this link can view your
-              porotofolio and projects, but they cannot edit or make any changes
-              to it.
-              <br />
-              Are you sure you want to share your porotofolio?
-            </p>
+            {isShared ? (
+              <p className="px-4 leading-6">
+                Be Cautious Anyone who has access to this link can’t view your
+                porotofolio and projects anymore.
+                <br />
+                Are you sure you want to unshare your porotofolio?
+              </p>
+            ) : (
+              <p className="px-4 leading-6">
+                Be Cautious Anyone who has access to this link can view your
+                porotofolio and projects, but they cannot edit or make any
+                changes to it.
+                <br />
+                Are you sure you want to share your porotofolio?
+              </p>
+            )}
             <DialogFooter className="border-lavender-mist mb-0 mx-0 bg-transparent pb-0 pt-4 flex items-center max-w-full">
               <Button
                 type="button"
