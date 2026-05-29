@@ -1,13 +1,6 @@
+import type { AnimatedIconProps } from "@/types";
 import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
-
-interface FileStackProps extends React.SVGAttributes<SVGSVGElement> {
-  width?: number;
-  height?: number;
-  strokeWidth?: number;
-  stroke?: string;
-  controls?: ReturnType<typeof useAnimation>;
-}
 
 const pathVariants: Variants = {
   normal: {
@@ -58,7 +51,7 @@ const FileStack = ({
   stroke = "currentColor",
   controls: externalControls,
   ...props
-}: FileStackProps) => {
+}: AnimatedIconProps) => {
   const internalControls = useAnimation();
   const controls = externalControls ?? internalControls;
 

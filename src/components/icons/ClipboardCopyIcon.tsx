@@ -1,14 +1,6 @@
+import type { AnimatedIconProps } from "@/types";
 import type { Transition } from "motion/react";
 import { motion, useAnimation } from "motion/react";
-
-interface ClipboardCopyProps extends React.SVGAttributes<SVGSVGElement> {
-  width?: number;
-  height?: number;
-  strokeWidth?: number;
-  stroke?: string;
-  /** Pass controls from the parent to drive the animation externally */
-  controls?: ReturnType<typeof useAnimation>;
-}
 
 const defaultTransition: Transition = {
   type: "spring",
@@ -20,10 +12,10 @@ const ClipboardCopyIcon = ({
   width = 28,
   height = 28,
   strokeWidth = 2,
-  stroke = "#ffffff",
+  stroke = "currentColor",
   controls: externalControls,
   ...props
-}: ClipboardCopyProps) => {
+}: AnimatedIconProps) => {
   const internalControls = useAnimation();
   const controls = externalControls ?? internalControls;
 

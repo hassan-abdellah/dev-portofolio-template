@@ -15,7 +15,7 @@ import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
 import useCopyToClipboard from "@/hooks/useCopyToClipboard";
 import { profilePaths } from "@/data/routesPaths";
 import ShareLinkIcon from "../icons/ShareLinkIcon";
-import { useAnimation } from "motion/react";
+import AnimatedIconButton from "../common/AnimatedIconButton";
 
 const ShareProfileModal = ({
   profileId,
@@ -24,7 +24,6 @@ const ShareProfileModal = ({
   profileId: string | undefined;
   isShared?: boolean;
 }) => {
-  const controls = useAnimation();
   const [isOpen, setIsOpen] = useState(false);
   const shareProfile = useShareProfile();
   const isLoading = shareProfile.status === "pending" ? true : false;
@@ -63,17 +62,14 @@ const ShareProfileModal = ({
     <>
       {/* Dialog trigger */}
 
-      <Button
+      <AnimatedIconButton
+        IconComponent={ShareLinkIcon}
         type="button"
         className="cursor-pointer px-4 py-5 bg-midnight-violet text-lavender-mist rounded-lg shadow-indigo-velvet hover:bg-dark-amethyst transition-colors duration-300 flex items-center gap-1"
+        buttonText={isShared ? "Unshare" : "Share"}
         aria-label={isShared ? "Unshare Profile" : "Share Profile"}
         onClick={() => setIsOpen(true)}
-        onMouseEnter={() => controls.start("animate")}
-        onMouseLeave={() => controls.start("normal")}
-      >
-        <ShareLinkIcon controls={controls} />
-        <span>{isShared ? "Unshare" : "Share"}</span>
-      </Button>
+      />
 
       {isOpen && (
         <Dialog open={isOpen} onOpenChange={setIsOpen} modal={true}>

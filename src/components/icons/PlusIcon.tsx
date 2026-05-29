@@ -8,7 +8,7 @@ const defaultTransition: Transition = {
   damping: 25,
 };
 
-const ShareLinkIcon = ({
+const PlusIcon = ({
   width = 28,
   height = 28,
   strokeWidth = 2,
@@ -32,20 +32,20 @@ const ShareLinkIcon = ({
       strokeLinejoin="round"
       {...props}
     >
-      <motion.path
+      <motion.g
         variants={{
-          normal: { translateX: "0px", translateY: "0px" },
-          animate: { translateX: "2px", translateY: "-2px" },
+          normal: { rotate: "0deg" },
+          animate: { rotate: "180deg" },
         }}
         transition={defaultTransition}
         animate={controls}
         initial="normal"
-        d="M15 3h6v6"
-      />
-      <path d="M10 14 21 3" />
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      >
+        <path d="M5 12h14" />
+        <path d="M12 5v14" />
+      </motion.g>
     </svg>
   );
 };
 
-export default ShareLinkIcon;
+export { PlusIcon };

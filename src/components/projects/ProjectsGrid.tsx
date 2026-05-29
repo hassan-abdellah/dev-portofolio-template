@@ -3,7 +3,7 @@ import { useAuth } from "@clerk/react";
 import { useMemo } from "react";
 import clsx from "clsx";
 import CreateProjectModal from "./CreateProjectModal";
-import SingleProject from "./SingleProject";
+import ProjectCard from "./ProjectCard";
 
 const ProjectsGrid = ({
   projects,
@@ -41,7 +41,7 @@ const ProjectsGrid = ({
         )}
       >
         {projects?.map((project) => (
-          <SingleProject
+          <ProjectCard
             key={project.id}
             project={project}
             isUserOwner={isUserOwner}

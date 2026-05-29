@@ -17,8 +17,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import ProjectFormInputs from "./ProjectFormInputs";
 import { handelSuccessMessage, handleAxiosError } from "@/utils/toasterUtils";
-import { PlusIcon } from "lucide-react";
 import { useCreateProject } from "@/hooks/useProjects";
+import AnimatedIconButton from "../common/AnimatedIconButton";
+import { PlusIcon } from "../icons/PlusIcon";
 
 const CreateProjectModal = ({
   profileId,
@@ -64,13 +65,14 @@ const CreateProjectModal = ({
   return (
     <>
       {/* Dialog trigger */}
-      <Button
+
+      <AnimatedIconButton
+        IconComponent={PlusIcon}
         className="py-4.5 bg-dark-amethyst hover:bg-lavender-purple transition-colors duration-200 cursor-pointer"
         onClick={() => setIsOpen(true)}
-      >
-        <PlusIcon />
-        {buttonTitle}
-      </Button>
+        buttonText={buttonTitle}
+      />
+
       {isOpen && (
         <Dialog open={isOpen} onOpenChange={setIsOpen} modal={true}>
           <DialogContent

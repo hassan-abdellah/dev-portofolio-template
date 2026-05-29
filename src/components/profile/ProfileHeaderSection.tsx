@@ -1,7 +1,7 @@
 import { usePlatformIcons } from "@/hooks/usePlatformIcons";
 import type { profileData } from "@/types";
 import { useAuth } from "@clerk/react";
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import ShareProfileModal from "@/components/profile/ShareProfileModal";
 import UploadProfileCVModal from "@/components/profile/UploadProfileCVModal";
 import ViewCVButton from "@/components/profile/ViewCVButton";
@@ -21,7 +21,7 @@ const ProfileHeaderSection = ({
 }) => {
   const { isSignedIn, userId } = useAuth();
   const controls = useAnimation();
-  const { PLATFORM_Icons } = usePlatformIcons();
+  const { renderPlatformIconLink } = usePlatformIcons();
   // check it the user who views the profile is the owener or not
   const isUserOwner = useMemo(() => {
     return isSignedIn && userId === data?.user?.clerkId && !isInViewMode
@@ -58,15 +58,9 @@ const ProfileHeaderSection = ({
       {data?.links.length ? (
         <div className="mt-6 flex items-center justify-center gap-2.5 flex-wrap">
           {data?.links.map((link) => (
-            <a
-              href={link.link_url}
-              target="_blank"
-              aria-label={`${link.link_type} url`}
-              key={link?.link_type}
-              className="w-6 h-6"
-            >
-              {PLATFORM_Icons[link?.link_type]}
-            </a>
+            <Fragment key={link.link_type}>
+              {renderPlatformIconLink(link.link_type, link.link_url)}
+            </Fragment>
           ))}
         </div>
       ) : null}

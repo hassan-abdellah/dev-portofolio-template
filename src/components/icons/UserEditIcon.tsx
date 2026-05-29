@@ -1,14 +1,6 @@
+import type { AnimatedIconProps } from "@/types";
 import type { Transition } from "motion/react";
 import { motion, useAnimation } from "motion/react";
-
-interface UserEditIconProps extends React.SVGAttributes<SVGSVGElement> {
-  width?: number;
-  height?: number;
-  strokeWidth?: number;
-  stroke?: string;
-  /** Pass controls from the parent to drive the animation externally */
-  controls?: ReturnType<typeof useAnimation>;
-}
 
 const defaultTransition: Transition = {
   type: "spring",
@@ -22,7 +14,7 @@ const UserEditIcon = ({
   stroke = "currentColor",
   controls: externalControls,
   ...props
-}: UserEditIconProps) => {
+}: AnimatedIconProps) => {
   const internalControls = useAnimation();
   const controls = externalControls ?? internalControls;
   return (

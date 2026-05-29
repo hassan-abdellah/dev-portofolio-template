@@ -17,8 +17,8 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import DropzoneField from "../inputs/DropzoneField";
-import { useAnimation } from "motion/react";
 import CloudUploadIcon from "../icons/CloudUploadIcon";
+import AnimatedIconButton from "../common/AnimatedIconButton";
 
 const UploadProfileCVModal = ({
   profileId,
@@ -27,7 +27,6 @@ const UploadProfileCVModal = ({
   profileId: string | undefined;
   cvUrl?: string | null;
 }) => {
-  const controls = useAnimation();
   const [isOpen, setIsOpen] = useState(false);
   const uploadCV = useUploadProfileCV();
 
@@ -71,17 +70,14 @@ const UploadProfileCVModal = ({
     <>
       {/* Dialog trigger */}
 
-      <Button
+      <AnimatedIconButton
+        IconComponent={CloudUploadIcon}
         type="button"
         className="cursor-pointer px-4 py-5 bg-gray-300 text-dark-amethyst rounded-lg shadow-indigo-velvet hover:bg-gray-500 hover:text-lavender-mist transition-colors duration-300 flex items-center gap-1"
-        onClick={() => setIsOpen(true)}
+        buttonText="Upload CV"
         aria-label="Upload CV"
-        onMouseEnter={() => controls.start("animate")}
-        onMouseLeave={() => controls.start("normal")}
-      >
-        <CloudUploadIcon controls={controls} />
-        <span>Upload CV</span>
-      </Button>
+        onClick={() => setIsOpen(true)}
+      />
 
       {isOpen && (
         <Dialog open={isOpen} onOpenChange={setIsOpen} modal={true}>

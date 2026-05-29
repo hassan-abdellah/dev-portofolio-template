@@ -1,14 +1,7 @@
+import type { AnimatedIconProps } from "@/types";
 import type { Transition } from "motion/react";
 import { motion, useAnimation } from "motion/react";
 
-interface FileUserIconProps extends React.SVGAttributes<SVGSVGElement> {
-  width?: number;
-  height?: number;
-  strokeWidth?: number;
-  stroke?: string;
-  /** Pass controls from the parent to drive the animation externally */
-  controls?: ReturnType<typeof useAnimation>;
-}
 const defaultTransition: Transition = {
   type: "spring",
   stiffness: 250,
@@ -22,7 +15,7 @@ const FileUserIcon = ({
 
   controls: externalControls,
   ...props
-}: FileUserIconProps) => {
+}: AnimatedIconProps) => {
   const internalControls = useAnimation();
   const controls = externalControls ?? internalControls;
   return (

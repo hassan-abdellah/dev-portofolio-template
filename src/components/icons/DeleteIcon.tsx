@@ -1,15 +1,6 @@
-"use client";
-
+import type { AnimatedIconProps } from "@/types";
 import type { Transition, Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
-
-interface DeleteProps extends React.SVGAttributes<SVGSVGElement> {
-  width?: number;
-  height?: number;
-  strokeWidth?: number;
-  stroke?: string;
-  controls?: ReturnType<typeof useAnimation>;
-}
 
 const springTransition: Transition = {
   type: "spring",
@@ -29,7 +20,7 @@ const DeleteIcon = ({
   stroke = "currentColor",
   controls: externalControls,
   ...props
-}: DeleteProps) => {
+}: AnimatedIconProps) => {
   const internalControls = useAnimation();
   const controls = externalControls ?? internalControls;
 
