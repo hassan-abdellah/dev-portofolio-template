@@ -17,7 +17,7 @@ const CopyProtofolioLinkButton = ({ profileId }: { profileId: string }) => {
     <AnimatedIconButton
       IconComponent={ClipboardCopyIcon}
       type="button"
-      className="cursor-pointer px-4 py-5 bg-indigo-velvet hover:bg-midnight-violet text-lavender-mist rounded-lg shadow-indigo-velvet  transition-colors duration-300 flex items-center gap-1"
+      className="cursor-pointer px-4 py-5 bg-[#B2C9FF] hover:bg-[#C9DCFF] text-dark-amethyst rounded-lg shadow-indigo-velvet  transition-colors duration-300 flex items-center gap-1"
       buttonText="Copy Link"
       aria-label="Copy Link"
       onClick={async () => {

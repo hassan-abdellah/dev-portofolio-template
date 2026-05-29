@@ -73,7 +73,7 @@ const UploadProfileCVModal = ({
       <AnimatedIconButton
         IconComponent={CloudUploadIcon}
         type="button"
-        className="cursor-pointer px-4 py-5 bg-gray-300 text-dark-amethyst rounded-lg shadow-indigo-velvet hover:bg-gray-500 hover:text-lavender-mist transition-colors duration-300 flex items-center gap-1"
+        className="cursor-pointer px-4 py-5 bg-gray-200 text-dark-amethyst rounded-lg shadow-indigo-velvet hover:bg-gray-300  transition-colors duration-300 flex items-center gap-1"
         buttonText="Upload CV"
         aria-label="Upload CV"
         onClick={() => setIsOpen(true)}
