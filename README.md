@@ -2,7 +2,7 @@
 
 _Share your Developer Protofolio With your recrutier or client_
 
-#### Technologies Used:
+#### Front-End Technologies Used:
 
  <p>
         <img src="https://www.svgrepo.com/show/355190/reactjs.svg" alt="react logo" 
@@ -31,10 +31,41 @@ _Share your Developer Protofolio With your recrutier or client_
 - Zod For Form Validation
 - React Hook From for building Froms
 
+#### Back-End Technologies Used:
+
+ <p>
+        <img src="https://www.svgrepo.com/show/452075/node-js.svg" alt="Node js logo" 
+        width="20"/>
+        <img src="https://www.svgrepo.com/show/330398/express.svg" alt="Express js logo" 
+        width="20"/>
+        <img src="https://www.svgrepo.com/show/374146/typescript-official.svg" alt="typescript logo" 
+        width="20"/>
+        <img src="https://www.svgrepo.com/show/373776/light-prisma.svg" alt="prisma logo" 
+        width="20"/>
+        <img src="https://www.svgrepo.com/show/354200/postgresql.svg" alt="postgresql logo" 
+        width="20"/>
+        <img src="https://www.svgrepo.com/show/451444/webhook.svg" alt="webhook logo" 
+        width="20"/>
+          <img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/logos/clerk-uvna1mxd54k50cohb8o2i.png/clerk-nzr7956knokwjx841f6yye.png?_a=DATAiZAAZAA0" alt="clerk auth logo" 
+        width="20"/>
+          <img src="https://www.svgrepo.com/show/353566/cloudinary.svg" alt="cloudinary logo" 
+        width="20"/>  
+          <img src="https://neon.com/brand/neon-logo-dark-color.svg" alt="neon logo" 
+        width="60"/>  
+</p>
+
+- Node JS and Express JS for building the API
+- Prisma for ORM to Postgresql
+- Neon for serverless Postgresql
+- Cloudinary for media hosting
+- Typescript for Type safety
+- Clerk for Authentication
+- Clerk Webhooks
+
 ##### Screens:
 
-![portofolio page](https://i.ibb.co/jvbxNhZ8/Dev-Portofolio-1.png)
-![Uplod CV](https://i.ibb.co/yBBRZxXv/Dev-Portofolio-2.png)
-![Create Project](https://i.ibb.co/ynh0n3Hq/Dev-Portofolio-3.png)
-![View Project](https://i.ibb.co/qM8vhpdB/Dev-Portofolio-4.png)
-![Create Portofolio](https://i.ibb.co/8Lz3Hh7N/Dev-Portofolio.png)
+![portofolio page](https://i.ibb.co/FqCcdg5b/Develeportfolio-My-Portfolio.png)
+![Uplod CV](https://i.ibb.co/Y4kYGqXn/Develeportfolio-upload-cv.png)
+![Create Project](https://i.ibb.co/LDBWDsdz/Develeportfolio-Create-Project.png)
+![View Project](https://i.ibb.co/Wpz3g7Xm/Develeportfolio-View-Project.png)
+![Update Portofolio](https://i.ibb.co/nsQHg5Yw/Develeportfolio-Update-Portfolio.png)
