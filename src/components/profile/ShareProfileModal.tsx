@@ -65,7 +65,7 @@ const ShareProfileModal = ({
       <AnimatedIconButton
         IconComponent={ShareLinkIcon}
         type="button"
-        className="cursor-pointer px-4 py-5 bg-midnight-violet text-lavender-mist rounded-lg shadow-indigo-velvet hover:bg-dark-amethyst transition-colors duration-300 flex items-center gap-1"
+        className="cta-button bg-midnight-violet text-lavender-mist hover:bg-dark-amethyst"
         buttonText={isShared ? "Unshare" : "Share"}
         aria-label={isShared ? "Unshare Profile" : "Share Profile"}
         onClick={() => setIsOpen(true)}
