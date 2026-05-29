@@ -6,7 +6,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 
 import { projectFormSchema } from "@/formSchemas/projectFormSchema";
 import { useForm } from "react-hook-form";
@@ -18,11 +17,10 @@ import ProjectFormInputs from "./ProjectFormInputs";
 import UpdateProjectLoader from "./UpdateProjectLoader";
 import { useProject } from "@/hooks/useProjects";
 import EyeIcon from "../icons/EyeIcon";
-import { useAnimation } from "motion/react";
+import AnimatedIconButton from "../common/AnimatedIconButton";
 
 const ViewProjectModal = ({ projectId }: { projectId: string | undefined }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const controls = useAnimation();
   const { data: projectData, isLoading } = useProject(projectId, isOpen);
 
   const defualtValues = useMemo(() => {
@@ -47,15 +45,15 @@ const ViewProjectModal = ({ projectId }: { projectId: string | undefined }) => {
   return (
     <>
       {/* Dialog trigger */}
-      <Button
+
+      <AnimatedIconButton
+        type="button"
+        IconComponent={EyeIcon}
         className="rounded-icon-button bg-gray-400 hover:bg-gray-500"
-        onClick={() => setIsOpen(true)}
         aria-label="View Project"
-        onMouseEnter={() => controls.start("animate")}
-        onMouseLeave={() => controls.start("normal")}
-      >
-        <EyeIcon controls={controls} />
-      </Button>
+        onClick={() => setIsOpen(true)}
+      />
+
       {isOpen && (
         <Dialog open={isOpen} onOpenChange={setIsOpen} modal={true}>
           {isLoading ? (

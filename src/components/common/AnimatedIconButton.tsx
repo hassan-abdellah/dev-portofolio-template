@@ -2,7 +2,8 @@ import { cn } from "@/lib/utils";
 import type { AnimatedIconProps } from "@/types";
 import { useAnimation } from "motion/react";
 import React from "react";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
+import type { VariantProps } from "class-variance-authority";
 
 export interface animatedIconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   iconwidth?: number;
@@ -14,6 +15,7 @@ export interface animatedIconButtonProps extends React.ButtonHTMLAttributes<HTML
   controls?: ReturnType<typeof useAnimation>;
   buttonText?: string;
   IconComponent: React.ComponentType<AnimatedIconProps>;
+  variant?: VariantProps<typeof buttonVariants>["variant"];
 }
 const AnimatedIconButton = ({
   IconComponent,
@@ -23,6 +25,7 @@ const AnimatedIconButton = ({
   iconstroke = "currentColor",
   iconClassNames,
   buttonText,
+  variant = "default",
   ...rest
 }: animatedIconButtonProps) => {
   const controls = useAnimation();
@@ -30,6 +33,7 @@ const AnimatedIconButton = ({
     <Button
       onMouseEnter={() => controls.start("animate")}
       onMouseLeave={() => controls.start("normal")}
+      variant={variant}
       {...rest}
     >
       <IconComponent
